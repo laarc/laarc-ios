@@ -25,6 +25,13 @@
 		A1C60D0B21F170330017EDE0 /* LaarcIOS.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */; };
 		A1C60D0D21F171A40017EDE0 /* LIOGetUrl.js in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0C21F171A40017EDE0 /* LIOGetUrl.js */; };
 		A1C60D0F21F1741B0017EDE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */; };
+		A1C60D1321F175550017EDE0 /* LIOTopStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1221F175550017EDE0 /* LIOTopStoriesViewController.swift */; };
+		A1C60D1521F176110017EDE0 /* LIOApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1421F176110017EDE0 /* LIOApi.swift */; };
+		A1C60D1721F176F10017EDE0 /* LIOConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1621F176F10017EDE0 /* LIOConstants.swift */; };
+		A1C60D1921F17CB20017EDE0 /* LIOItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1821F17CB20017EDE0 /* LIOItem.swift */; };
+		A1C60D1C21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1B21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift */; };
+		A1C60D1E21F19BF90017EDE0 /* TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1D21F19BF90017EDE0 /* TimeAgo.swift */; };
+		A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */; };
 		B8D85E53AC8184AB558743B3 /* Pods_LaarcIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9461894667BC3F588E93DC21 /* Pods_LaarcIOSUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +106,13 @@
 		A1C60D0921F16FC00017EDE0 /* LaarcIOSShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaarcIOSShareExtension.entitlements; sourceTree = "<group>"; };
 		A1C60D0C21F171A40017EDE0 /* LIOGetUrl.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = LIOGetUrl.js; sourceTree = "<group>"; };
 		A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A1C60D1221F175550017EDE0 /* LIOTopStoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOTopStoriesViewController.swift; sourceTree = "<group>"; };
+		A1C60D1421F176110017EDE0 /* LIOApi.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = LIOApi.swift; sourceTree = "<group>"; tabWidth = 4; };
+		A1C60D1621F176F10017EDE0 /* LIOConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOConstants.swift; sourceTree = "<group>"; };
+		A1C60D1821F17CB20017EDE0 /* LIOItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOItem.swift; sourceTree = "<group>"; };
+		A1C60D1B21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOTopStoryTableViewCell.swift; sourceTree = "<group>"; };
+		A1C60D1D21F19BF90017EDE0 /* TimeAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAgo.swift; sourceTree = "<group>"; };
+		A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOTopStoryDetailViewController.swift; sourceTree = "<group>"; };
 		E3DBB16B7A9CFFDF43C5CAB5 /* Pods-LaarcIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaarcIOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaarcIOSTests/Pods-LaarcIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E95132BBC8F3E35F3D32C203 /* Pods-LaarcIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaarcIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +206,9 @@
 		A1C60CC421F16ED20017EDE0 /* LaarcIOS */ = {
 			isa = PBXGroup;
 			children = (
+				A1C60D1A21F17CD40017EDE0 /* Story */,
+				A1C60D1121F1753F0017EDE0 /* TopStories */,
+				A1C60D1021F175360017EDE0 /* Api */,
 				A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */,
 				A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */,
 				A1C60CC521F16ED20017EDE0 /* AppDelegate.swift */,
@@ -201,6 +218,7 @@
 				A1C60CCE21F16ED40017EDE0 /* Assets.xcassets */,
 				A1C60CD021F16ED40017EDE0 /* LaunchScreen.storyboard */,
 				A1C60CD321F16ED40017EDE0 /* Info.plist */,
+				A1C60D1D21F19BF90017EDE0 /* TimeAgo.swift */,
 			);
 			path = LaarcIOS;
 			sourceTree = "<group>";
@@ -233,6 +251,33 @@
 				A1C60D0C21F171A40017EDE0 /* LIOGetUrl.js */,
 			);
 			path = LaarcIOSShareExtension;
+			sourceTree = "<group>";
+		};
+		A1C60D1021F175360017EDE0 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				A1C60D1621F176F10017EDE0 /* LIOConstants.swift */,
+				A1C60D1421F176110017EDE0 /* LIOApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		A1C60D1121F1753F0017EDE0 /* TopStories */ = {
+			isa = PBXGroup;
+			children = (
+				A1C60D1221F175550017EDE0 /* LIOTopStoriesViewController.swift */,
+				A1C60D1B21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift */,
+				A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */,
+			);
+			path = TopStories;
+			sourceTree = "<group>";
+		};
+		A1C60D1A21F17CD40017EDE0 /* Story */ = {
+			isa = PBXGroup;
+			children = (
+				A1C60D1821F17CB20017EDE0 /* LIOItem.swift */,
+			);
+			path = Story;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,8 +561,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1C60D1921F17CB20017EDE0 /* LIOItem.swift in Sources */,
 				A1C60CCA21F16ED20017EDE0 /* SecondViewController.swift in Sources */,
+				A1C60D1E21F19BF90017EDE0 /* TimeAgo.swift in Sources */,
+				A1C60D1521F176110017EDE0 /* LIOApi.swift in Sources */,
+				A1C60D1321F175550017EDE0 /* LIOTopStoriesViewController.swift in Sources */,
+				A1C60D1C21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift in Sources */,
+				A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */,
 				A1C60CC621F16ED20017EDE0 /* AppDelegate.swift in Sources */,
+				A1C60D1721F176F10017EDE0 /* LIOConstants.swift in Sources */,
 				A1C60CC821F16ED20017EDE0 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
