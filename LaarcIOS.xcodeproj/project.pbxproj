@@ -24,6 +24,7 @@
 		A1C60D0A21F170270017EDE0 /* LaarcIOS.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */; };
 		A1C60D0B21F170330017EDE0 /* LaarcIOS.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */; };
 		A1C60D0D21F171A40017EDE0 /* LIOGetUrl.js in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0C21F171A40017EDE0 /* LIOGetUrl.js */; };
+		A1C60D0F21F1741B0017EDE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */; };
 		B8D85E53AC8184AB558743B3 /* Pods_LaarcIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9461894667BC3F588E93DC21 /* Pods_LaarcIOSUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaarcIOS.entitlements; sourceTree = "<group>"; };
 		A1C60D0921F16FC00017EDE0 /* LaarcIOSShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaarcIOSShareExtension.entitlements; sourceTree = "<group>"; };
 		A1C60D0C21F171A40017EDE0 /* LIOGetUrl.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = LIOGetUrl.js; sourceTree = "<group>"; };
+		A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E3DBB16B7A9CFFDF43C5CAB5 /* Pods-LaarcIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaarcIOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaarcIOSTests/Pods-LaarcIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E95132BBC8F3E35F3D32C203 /* Pods-LaarcIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaarcIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +192,7 @@
 		A1C60CC421F16ED20017EDE0 /* LaarcIOS */ = {
 			isa = PBXGroup;
 			children = (
+				A1C60D0E21F1741B0017EDE0 /* GoogleService-Info.plist */,
 				A1C60D0821F16FAB0017EDE0 /* LaarcIOS.entitlements */,
 				A1C60CC521F16ED20017EDE0 /* AppDelegate.swift */,
 				A1C60CC721F16ED20017EDE0 /* FirstViewController.swift */,
@@ -379,6 +382,7 @@
 			files = (
 				A1C60D0A21F170270017EDE0 /* LaarcIOS.entitlements in Resources */,
 				A1C60CD221F16ED40017EDE0 /* LaunchScreen.storyboard in Resources */,
+				A1C60D0F21F1741B0017EDE0 /* GoogleService-Info.plist in Resources */,
 				A1C60CCF21F16ED40017EDE0 /* Assets.xcassets in Resources */,
 				A1C60CCD21F16ED20017EDE0 /* Main.storyboard in Resources */,
 			);

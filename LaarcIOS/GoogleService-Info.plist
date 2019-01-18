@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>587806808328-tdk8dmtdbrev6mse5s6etuibicrhlb21.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.587806808328-tdk8dmtdbrev6mse5s6etuibicrhlb21</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZ7yherlZ_n8QPOHDGrDitJm4PR6Gf_3Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>587806808328</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.emilykolar.LaarcIOS</string>
+	<key>PROJECT_ID</key>
+	<string>laarrc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>laarrc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:587806808328:ios:14fcdee1cb224392</string>
+	<key>DATABASE_URL</key>
+	<string>https://laarrc.firebaseio.com</string>
+</dict>
+</plist>
