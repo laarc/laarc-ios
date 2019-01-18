@@ -129,8 +129,15 @@ extension LIOTopStoriesViewController {
 }
 
 extension LIOTopStoriesViewController {
+    @objc func goBack() {
+        navigationController?.popViewController(animated: true)
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "topStoryDetailVC") as! LIOTopStoryDetailViewController
+        let item = topStoryItems[indexPath.row]
+        detailVC.item = item
+        detailVC.number = indexPath.row + 1
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
