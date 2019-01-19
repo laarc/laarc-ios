@@ -8,6 +8,7 @@ target 'LaarcIOS' do
   # Pods for LaarcIOS
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'InputBarAccessoryView'
 
   target 'LaarcIOSTests' do
     inherit! :search_paths

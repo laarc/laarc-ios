@@ -11,6 +11,7 @@
 		98921A5015FB55FD0451817C /* Pods_LaarcIOSShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D08B0AC8D9380231F9CE72D /* Pods_LaarcIOSShareExtension.framework */; };
 		9D353324F2306895899BB74E /* Pods_LaarcIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9E9CBE51B4E8D8CCE9161A /* Pods_LaarcIOSTests.framework */; };
 		A16A1C4121F28E350011F0FA /* LIOUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A1C4021F28E350011F0FA /* LIOUtils.swift */; };
+		A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */; };
 		A1C60CC621F16ED20017EDE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60CC521F16ED20017EDE0 /* AppDelegate.swift */; };
 		A1C60CC821F16ED20017EDE0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60CC721F16ED20017EDE0 /* FirstViewController.swift */; };
 		A1C60CCA21F16ED20017EDE0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60CC921F16ED20017EDE0 /* SecondViewController.swift */; };
@@ -86,6 +87,7 @@
 		7D08B0AC8D9380231F9CE72D /* Pods_LaarcIOSShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LaarcIOSShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9461894667BC3F588E93DC21 /* Pods_LaarcIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LaarcIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A16A1C4021F28E350011F0FA /* LIOUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOUtils.swift; sourceTree = "<group>"; };
+		A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOAddCommentViewController.swift; sourceTree = "<group>"; };
 		A1C60CC221F16ED20017EDE0 /* LaarcIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaarcIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C60CC521F16ED20017EDE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1C60CC721F16ED20017EDE0 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				A1C60D1221F175550017EDE0 /* LIOTopStoriesViewController.swift */,
 				A1C60D1B21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift */,
 				A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */,
+				A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */,
 			);
 			path = TopStories;
 			sourceTree = "<group>";
@@ -531,12 +534,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -579,6 +584,7 @@
 				A1C60D1C21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift in Sources */,
 				A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */,
 				A1C60CC621F16ED20017EDE0 /* AppDelegate.swift in Sources */,
+				A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */,
 				A1C60D1721F176F10017EDE0 /* LIOConstants.swift in Sources */,
 				A1C60CC821F16ED20017EDE0 /* FirstViewController.swift in Sources */,
 			);
