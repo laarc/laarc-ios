@@ -17,14 +17,23 @@ class CommentCellItem {
     }
 }
 
+protocol ReplyDelegate {
+    func addReply(item: LIOItem)
+}
+
 class LIOCommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var replyButton: UIButton!
+    
+    var item: LIOItem!
+
+    var delegate: ReplyDelegate?
 
     class func instanceFromNib(item: LIOItem, isExpanded: Bool) -> LIOCommentTableViewCell {
         let me = UINib(nibName: "LIOCommentTableViewCell", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! LIOCommentTableViewCell
         me.configure(item: item, isExpanded: isExpanded)
+        me.item = item
         return me
     }
 
@@ -34,6 +43,15 @@ class LIOCommentTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func setDelegate(del: ReplyDelegate) {
+        replyButton.addTarget(self, action: #selector(onReplyPress), for: .touchUpInside)
+        delegate = del
+    }
+    
+    @objc func onReplyPress() {
+        delegate?.addReply(item: item)
     }
     
     func updateLabel(isExpanded: Bool) {

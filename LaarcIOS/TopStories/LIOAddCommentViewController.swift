@@ -11,8 +11,12 @@ import InputBarAccessoryView
 
 class LIOAddCommentViewController: UIViewController {
 
+    @IBOutlet weak var contentLabel: UILabel!
+    
     let inputBar = InputBarAccessoryView()
     
+    var item: LIOItem!
+
     private var keyboardManager = KeyboardManager()
 
     override var inputAccessoryView: UIView? {
@@ -25,7 +29,11 @@ class LIOAddCommentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.addSubview(inputBar)
+        if let title = item.title {
+            contentLabel.text = title
+        } else if let text = item.text {
+            contentLabel.text = text
+        }
     }
 
     func goBack() {

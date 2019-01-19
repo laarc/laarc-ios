@@ -68,6 +68,7 @@ class LIOTopStoryDetailViewController: UIViewController {
 
     @objc func addCommentPressed(_ sender: Any) {
         let addCommentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addCommentVC") as! LIOAddCommentViewController
+        addCommentVC.item = item
         navigationController?.pushViewController(addCommentVC, animated: true)
     }
     
@@ -103,13 +104,14 @@ extension LIOTopStoryDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = LIOCommentTableViewCell.instanceFromNib(item: commentCellItems[indexPath.row].item, isExpanded: commentCellItems[indexPath.row].isExpanded)
         cell.updateLabel(isExpanded: commentCellItems[indexPath.row].isExpanded)
+        cell.setDelegate(del: self)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let commentCellItem = commentCellItems[indexPath.row]
         commentCellItem.toggleExpanded()
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -118,4 +120,12 @@ extension LIOTopStoryDetailViewController: UITableViewDataSource {
         return headerView
     }
     
+}
+
+extension LIOTopStoryDetailViewController: ReplyDelegate {
+    func addReply(item: LIOItem) {
+        let addCommentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addCommentVC") as! LIOAddCommentViewController
+        addCommentVC.item = item
+        navigationController?.pushViewController(addCommentVC, animated: true)
+    }
 }
