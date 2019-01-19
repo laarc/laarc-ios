@@ -99,32 +99,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cU5-1c-zFh">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU5-1c-zFh">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="7j0-ii-bAs">
+                                    <navigationItem id="7j0-ii-bAs">
                                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="gl8-Yr-bcx"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgi-Fn-bhR">
+                                <rect key="frame" x="16" y="79" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="ABV-gM-Eus"/>
+                                    <constraint firstAttribute="height" constant="20" id="GHe-AM-VAB"/>
+                                </constraints>
+                                <state key="normal" image="upvote">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="upvotePressed:" destination="ijW-eN-TEi" eventType="touchUpInside" id="dyl-W7-93G"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6v-8y-nKk">
+                                <rect key="frame" x="16" y="107" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="GUD-RH-RmR"/>
+                                    <constraint firstAttribute="height" constant="20" id="l8E-A5-hLB"/>
+                                </constraints>
+                                <state key="normal" image="downvote">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="downvotePressed:" destination="ijW-eN-TEi" eventType="touchUpInside" id="ObM-sJ-y9E"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mk4-LE-Um8">
+                                <rect key="frame" x="52" y="135" width="307" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7I-DT-9rV">
+                                <rect key="frame" x="52" y="79" width="307" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add reply" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-lM-smG">
+                                <rect key="frame" x="52" y="164" width="307" height="17"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Mk4-LE-Um8" firstAttribute="top" secondItem="p7I-DT-9rV" secondAttribute="bottom" constant="8" id="0dN-X6-w8L"/>
+                            <constraint firstItem="p7I-DT-9rV" firstAttribute="leading" secondItem="kgi-Fn-bhR" secondAttribute="trailing" constant="16" id="7mn-6e-3cZ"/>
+                            <constraint firstItem="t1B-aA-z2z" firstAttribute="trailing" secondItem="p7I-DT-9rV" secondAttribute="trailing" constant="16" id="DV7-xG-bl7"/>
+                            <constraint firstItem="xhl-lM-smG" firstAttribute="leading" secondItem="Mk4-LE-Um8" secondAttribute="leading" id="FWU-Iw-BiM"/>
                             <constraint firstItem="cU5-1c-zFh" firstAttribute="top" secondItem="t1B-aA-z2z" secondAttribute="top" id="HfZ-yW-khd"/>
+                            <constraint firstItem="u6v-8y-nKk" firstAttribute="top" secondItem="kgi-Fn-bhR" secondAttribute="bottom" constant="8" id="JIn-OM-RcZ"/>
+                            <constraint firstItem="t1B-aA-z2z" firstAttribute="trailing" secondItem="Mk4-LE-Um8" secondAttribute="trailing" constant="16" id="Jp4-rZ-tSG"/>
+                            <constraint firstItem="Mk4-LE-Um8" firstAttribute="leading" secondItem="p7I-DT-9rV" secondAttribute="leading" id="Ptd-6j-h7x"/>
                             <constraint firstItem="t1B-aA-z2z" firstAttribute="trailing" secondItem="cU5-1c-zFh" secondAttribute="trailing" id="TZs-wk-MsH"/>
+                            <constraint firstItem="p7I-DT-9rV" firstAttribute="top" secondItem="kgi-Fn-bhR" secondAttribute="top" id="XJs-QX-ftf"/>
+                            <constraint firstItem="u6v-8y-nKk" firstAttribute="leading" secondItem="kgi-Fn-bhR" secondAttribute="leading" id="YS6-jU-9h6"/>
+                            <constraint firstItem="kgi-Fn-bhR" firstAttribute="top" secondItem="cU5-1c-zFh" secondAttribute="bottom" constant="15" id="YhF-DT-D4A"/>
                             <constraint firstItem="cU5-1c-zFh" firstAttribute="leading" secondItem="t1B-aA-z2z" secondAttribute="leading" id="aEY-T9-NAI"/>
+                            <constraint firstItem="kgi-Fn-bhR" firstAttribute="leading" secondItem="t1B-aA-z2z" secondAttribute="leading" constant="16" id="jYg-W3-LxW"/>
+                            <constraint firstItem="p7I-DT-9rV" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="u6v-8y-nKk" secondAttribute="bottom" id="kPb-xj-Gci"/>
+                            <constraint firstItem="xhl-lM-smG" firstAttribute="top" secondItem="Mk4-LE-Um8" secondAttribute="bottom" constant="12" id="lS1-rA-3hM"/>
+                            <constraint firstItem="xhl-lM-smG" firstAttribute="trailing" secondItem="Mk4-LE-Um8" secondAttribute="trailing" id="tzZ-Z1-wJa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t1B-aA-z2z"/>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doneButton" destination="gl8-Yr-bcx" id="R6w-lc-cSA"/>
+                        <outlet property="downvoteButton" destination="u6v-8y-nKk" id="gbK-y9-DFr"/>
+                        <outlet property="itemInfoLabel" destination="Mk4-LE-Um8" id="3yQ-o0-jik"/>
+                        <outlet property="itemTitleLabel" destination="p7I-DT-9rV" id="VnA-Wr-SYB"/>
                         <outlet property="titleItem" destination="7j0-ii-bAs" id="Glk-yw-oq7"/>
+                        <outlet property="upvoteButton" destination="kgi-Fn-bhR" id="jzQ-f2-08U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O8g-pT-H98" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="-912"/>
+            <point key="canvasLocation" x="936.79999999999995" y="-912.5937031484259"/>
         </scene>
         <!--Top-->
         <scene sceneID="msV-Tp-Nys">
@@ -236,6 +298,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="downvote" width="31" height="25"/>
         <image name="second" width="30" height="30"/>
+        <image name="upvote" width="31" height="25"/>
     </resources>
 </document>

@@ -12,6 +12,10 @@ class LIOTopStoryDetailViewController: UIViewController {
 
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var titleItem: UINavigationItem!
+    @IBOutlet weak var itemTitleLabel: UILabel!
+    @IBOutlet weak var itemInfoLabel: UILabel!
+    @IBOutlet weak var upvoteButton: UIButton!
+    @IBOutlet weak var downvoteButton: UIButton!
     
     var item: LIOItem!
     var number: Int!
@@ -22,8 +26,26 @@ class LIOTopStoryDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleItem.title = String(number)
         doneButton.action = #selector(goBack)
+        itemTitleLabel.text = item.title
+        let infoString = LIOUtils.getInfoStringFromItem(item: item)
+        itemInfoLabel.text = infoString
+        buttonInsets(button: upvoteButton)
+        buttonInsets(button: downvoteButton)
         // Do any additional setup after loading the view.
+    }
+    
+    func buttonInsets(button: UIButton) {
+        button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+    }
+    
+    @objc func infoLabelPressed() {
+        
+    }
+    
+    @IBAction func upvotePressed(_ sender: Any) {
+    }
+    
+    @IBAction func downvotePressed(_ sender: Any) {
     }
 }
