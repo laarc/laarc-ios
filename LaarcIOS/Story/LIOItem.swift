@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum ItemType: String {
+    case job = "job", story = "story", comment = "comment", poll = "poll", pollopt = "pollopt"
+}
+
 class LIOItem {
     private var _by: String?
     private var _dead: Bool!
@@ -22,7 +26,7 @@ class LIOItem {
     private var _text: String?
     private var _time: Double?
     private var _title: String?
-    private var _type: String?
+    private var _type: ItemType!
     private var _url: String?
 
     init(item: [String: Any]) {
@@ -39,7 +43,7 @@ class LIOItem {
         _text = item["text"] as? String
         _time = item["time"] as? Double
         _title = item["title"] as? String
-        _type = item["type"] as? String
+        _type = ItemType.init(rawValue: item["type"] as! String)
         _url = item["url"] as? String
     }
     
@@ -121,7 +125,7 @@ class LIOItem {
         }
     }
     
-    var type: String? {
+    var type: ItemType {
         get {
             return _type
         }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LIOStoryDetailTableHeader" customModule="LaarcIOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Xd-Ia-jV6">
+                    <rect key="frame" x="16" y="20" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="X6s-4z-0S8"/>
+                        <constraint firstAttribute="width" constant="20" id="qpH-PS-Y2a"/>
+                    </constraints>
+                    <state key="normal" image="upvote"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTh-cu-Aol">
+                    <rect key="frame" x="52" y="20" width="307" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgo-Mt-Twg">
+                    <rect key="frame" x="52" y="72" width="307" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUk-n5-7Tu">
+                    <rect key="frame" x="52" y="97" width="109" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="109" id="BOQ-Ww-aVu"/>
+                        <constraint firstAttribute="height" constant="29" id="tyj-hg-Ldd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                    <state key="normal" title="add comment">
+                        <color key="titleColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJu-bC-vxc">
+                    <rect key="frame" x="16" y="44" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="DqI-AL-c81"/>
+                        <constraint firstAttribute="height" constant="20" id="LhH-h9-eDL"/>
+                    </constraints>
+                    <state key="normal" image="downvote"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dUk-n5-7Tu" firstAttribute="leading" secondItem="mgo-Mt-Twg" secondAttribute="leading" id="4Ql-op-ZYX"/>
+                <constraint firstItem="mTh-cu-Aol" firstAttribute="leading" secondItem="aJu-bC-vxc" secondAttribute="trailing" constant="16" id="5dt-zF-nvV"/>
+                <constraint firstItem="mgo-Mt-Twg" firstAttribute="leading" secondItem="mTh-cu-Aol" secondAttribute="leading" id="JJl-6N-vqc"/>
+                <constraint firstItem="mTh-cu-Aol" firstAttribute="top" secondItem="3Xd-Ia-jV6" secondAttribute="top" id="NXe-od-e4I"/>
+                <constraint firstItem="3Xd-Ia-jV6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="aTM-Hr-7qK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mTh-cu-Aol" secondAttribute="trailing" constant="16" id="dIo-JV-NMK"/>
+                <constraint firstItem="mTh-cu-Aol" firstAttribute="bottom" secondItem="aJu-bC-vxc" secondAttribute="bottom" id="dhQ-Jz-idh"/>
+                <constraint firstItem="dUk-n5-7Tu" firstAttribute="top" secondItem="mgo-Mt-Twg" secondAttribute="bottom" constant="8" id="diR-v4-Sqp"/>
+                <constraint firstItem="aJu-bC-vxc" firstAttribute="leading" secondItem="3Xd-Ia-jV6" secondAttribute="leading" id="l95-Vq-hef"/>
+                <constraint firstItem="aJu-bC-vxc" firstAttribute="top" secondItem="3Xd-Ia-jV6" secondAttribute="bottom" constant="4" id="qq7-84-pqV"/>
+                <constraint firstItem="mgo-Mt-Twg" firstAttribute="top" secondItem="mTh-cu-Aol" secondAttribute="bottom" constant="8" id="x3Q-2o-n3r"/>
+                <constraint firstItem="mgo-Mt-Twg" firstAttribute="trailing" secondItem="mTh-cu-Aol" secondAttribute="trailing" id="xdd-gU-KII"/>
+                <constraint firstItem="3Xd-Ia-jV6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="ySR-64-UVF"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="addCommentButton" destination="dUk-n5-7Tu" id="NBJ-6j-BMF"/>
+                <outlet property="downvoteButton" destination="aJu-bC-vxc" id="QSu-if-Ooy"/>
+                <outlet property="infoStringLabel" destination="mgo-Mt-Twg" id="g0o-qv-dda"/>
+                <outlet property="titleLabel" destination="mTh-cu-Aol" id="c3E-Ry-wkQ"/>
+                <outlet property="upvoteButton" destination="3Xd-Ia-jV6" id="jCn-fG-eV2"/>
+            </connections>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="downvote" width="31" height="25"/>
+        <image name="upvote" width="31" height="25"/>
+    </resources>
+</document>

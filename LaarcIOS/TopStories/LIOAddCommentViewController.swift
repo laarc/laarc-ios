@@ -12,7 +12,7 @@ import InputBarAccessoryView
 class LIOAddCommentViewController: UIViewController {
 
     let inputBar = InputBarAccessoryView()
-
+    
     private var keyboardManager = KeyboardManager()
 
     override var inputAccessoryView: UIView? {
@@ -26,6 +26,14 @@ class LIOAddCommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        view.addSubview(inputBar)
+    }
+
+    func goBack() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @IBAction func cancelPressed(_ sender: Any) {
+        goBack()
     }
     
 }
