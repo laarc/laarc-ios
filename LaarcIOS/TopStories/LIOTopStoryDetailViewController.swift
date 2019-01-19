@@ -9,7 +9,6 @@
 import UIKit
 
 class LIOTopStoryDetailViewController: UIViewController {
-
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var titleItem: UINavigationItem!
     @IBOutlet weak var itemTitleLabel: UILabel!
@@ -41,6 +40,11 @@ class LIOTopStoryDetailViewController: UIViewController {
     
     @objc func infoLabelPressed() {
         
+    }
+    
+    @IBAction func addReplyPressed(_ sender: Any) {
+        let addCommentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addCommentVC") as! LIOAddCommentViewController
+        navigationController?.pushViewController(addCommentVC, animated: true)
     }
     
     @IBAction func upvotePressed(_ sender: Any) {
