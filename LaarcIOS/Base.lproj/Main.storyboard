@@ -184,11 +184,11 @@
             </objects>
             <point key="canvasLocation" x="1732" y="-913.49325337331345"/>
         </scene>
-        <!--Top-->
+        <!--top-->
         <scene sceneID="msV-Tp-Nys">
             <objects>
                 <navigationController navigationBarHidden="YES" id="sLk-LP-zp1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top" id="2P7-ys-Fkg"/>
+                    <tabBarItem key="tabBarItem" title="top" id="2P7-ys-Fkg"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hDP-Kd-cGC">
                         <autoresizingMask key="autoresizingMask"/>
@@ -201,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="-545" y="-911"/>
         </scene>
-        <!--Submit-->
+        <!--submit-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="LaarcIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -232,7 +232,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Submit" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="submit" image="second" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -249,13 +249,15 @@
                     </tabBar>
                     <connections>
                         <segue destination="sLk-LP-zp1" kind="relationship" relationship="viewControllers" id="aq8-lJ-LBM"/>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="Zby-kP-n0h"/>
+                        <segue destination="8jt-QA-tpL" kind="relationship" relationship="viewControllers" id="KtX-eC-KWv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1014" y="-2"/>
         </scene>
-        <!--Me-->
+        <!--me-->
         <scene sceneID="bZF-Pw-oXb">
             <objects>
                 <viewController id="8jt-QA-tpL" customClass="SecondViewController" customModule="LaarcIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -263,34 +265,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="CS9-70-VdQ">
-                                <rect key="frame" x="87" y="312" width="201.5" height="43"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNO-gc-FIS">
-                                <rect key="frame" x="80" y="363" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWs-dZ-P4l">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MNO-gc-FIS" firstAttribute="centerX" secondItem="CS9-70-VdQ" secondAttribute="centerX" id="Iik-Gk-7Db"/>
-                            <constraint firstItem="MNO-gc-FIS" firstAttribute="top" secondItem="CS9-70-VdQ" secondAttribute="bottom" constant="8" symbolic="YES" id="bLQ-rU-N7t"/>
-                            <constraint firstAttribute="centerY" secondItem="CS9-70-VdQ" secondAttribute="centerY" id="iEu-fl-JHX"/>
-                            <constraint firstAttribute="centerX" secondItem="CS9-70-VdQ" secondAttribute="centerX" id="noE-GO-JSR"/>
+                            <constraint firstItem="hWs-dZ-P4l" firstAttribute="top" secondItem="vUb-nK-1w3" secondAttribute="top" id="9d2-si-2TZ"/>
+                            <constraint firstItem="vUb-nK-1w3" firstAttribute="trailing" secondItem="hWs-dZ-P4l" secondAttribute="trailing" id="Sek-HR-mvq"/>
+                            <constraint firstItem="hWs-dZ-P4l" firstAttribute="leading" secondItem="vUb-nK-1w3" secondAttribute="leading" id="ohV-PD-VOg"/>
+                            <constraint firstItem="vUb-nK-1w3" firstAttribute="bottom" secondItem="hWs-dZ-P4l" secondAttribute="bottom" id="vCb-ya-I8s"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vUb-nK-1w3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Me" image="second" id="xzH-i1-Ggr"/>
+                    <tabBarItem key="tabBarItem" title="me" image="second" id="xzH-i1-Ggr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3b-5a-WS6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393" y="512"/>
+            <point key="canvasLocation" x="392.80000000000001" y="511.39430284857576"/>
         </scene>
     </scenes>
     <resources>
