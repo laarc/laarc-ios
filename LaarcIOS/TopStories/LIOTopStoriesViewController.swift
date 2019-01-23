@@ -8,7 +8,7 @@
 
 import UIKit
 
-let BIRD_GREEN = UIColor(red: 102/255, green: 170/255, blue: 170/255, alpha: 1.0)
+//let BIRD_GREEN = UIColor(red: 102/255, green: 170/255, blue: 170/255, alpha: 1.0)
 
 class LIOTopStoriesViewController: UITableViewController {
 

@@ -10,9 +10,9 @@ import UIKit
 
 class CommentTableCell: UITableViewCell {
     
+    @IBOutlet weak var actionsView: UIView!
     @IBOutlet var movieDescription: UILabel!
     @IBOutlet var movieTitle: UILabel!
-    @IBOutlet var moviePhoto: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
