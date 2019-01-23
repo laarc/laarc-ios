@@ -13,6 +13,9 @@
 		A16A1C4121F28E350011F0FA /* LIOUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A1C4021F28E350011F0FA /* LIOUtils.swift */; };
 		A1860C3121F3FB110002AF8D /* LIOUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1860C3021F3FB110002AF8D /* LIOUserView.xib */; };
 		A1860C3321F3FB1F0002AF8D /* LIOUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1860C3221F3FB1F0002AF8D /* LIOUserView.swift */; };
+		A18DB4DB21F80B3E00A06B2A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DB4DA21F80B3E00A06B2A /* CommentTableViewCell.swift */; };
+		A18DB4DD21F80C2500A06B2A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DB4DC21F80C2500A06B2A /* CommentsViewController.swift */; };
+		A18DB4DF21F80EB700A06B2A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DB4DE21F80EB700A06B2A /* DetailViewController.swift */; };
 		A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */; };
 		A1B8504221F2DA9300962B1B /* LIOStoryDetailTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8504121F2DA9300962B1B /* LIOStoryDetailTableHeader.swift */; };
 		A1B8504421F2DAA000962B1B /* LIOStoryDetailTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B8504321F2DAA000962B1B /* LIOStoryDetailTableHeader.xib */; };
@@ -101,6 +104,9 @@
 		A16A1C4021F28E350011F0FA /* LIOUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOUtils.swift; sourceTree = "<group>"; };
 		A1860C3021F3FB110002AF8D /* LIOUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LIOUserView.xib; sourceTree = "<group>"; };
 		A1860C3221F3FB1F0002AF8D /* LIOUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOUserView.swift; sourceTree = "<group>"; };
+		A18DB4DA21F80B3E00A06B2A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		A18DB4DC21F80C2500A06B2A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		A18DB4DE21F80EB700A06B2A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOAddCommentViewController.swift; sourceTree = "<group>"; };
 		A1B8504121F2DA9300962B1B /* LIOStoryDetailTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOStoryDetailTableHeader.swift; sourceTree = "<group>"; };
 		A1B8504321F2DAA000962B1B /* LIOStoryDetailTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LIOStoryDetailTableHeader.xib; sourceTree = "<group>"; };
@@ -318,6 +324,9 @@
 				A1B8505121F2E16100962B1B /* LIODownvoteButton.swift */,
 				A1FBECC821F694FF0088D4EE /* LIONestedCommentView.swift */,
 				A1FBECCA21F6950D0088D4EE /* LIONestedCommentView.xib */,
+				A18DB4DA21F80B3E00A06B2A /* CommentTableViewCell.swift */,
+				A18DB4DC21F80C2500A06B2A /* CommentsViewController.swift */,
+				A18DB4DE21F80EB700A06B2A /* DetailViewController.swift */,
 			);
 			path = TopStories;
 			sourceTree = "<group>";
@@ -631,8 +640,10 @@
 				A1B8505021F2E13400962B1B /* LIOUpvoteButton.swift in Sources */,
 				A1B8504221F2DA9300962B1B /* LIOStoryDetailTableHeader.swift in Sources */,
 				A1C60D1521F176110017EDE0 /* LIOApi.swift in Sources */,
+				A18DB4DF21F80EB700A06B2A /* DetailViewController.swift in Sources */,
 				A16A1C4121F28E350011F0FA /* LIOUtils.swift in Sources */,
 				A1B8504821F2E08500962B1B /* LIOCommentTableViewCell.swift in Sources */,
+				A18DB4DD21F80C2500A06B2A /* CommentsViewController.swift in Sources */,
 				A1B8505221F2E16100962B1B /* LIODownvoteButton.swift in Sources */,
 				A1C60D1321F175550017EDE0 /* LIOTopStoriesViewController.swift in Sources */,
 				A1860C3321F3FB1F0002AF8D /* LIOUserView.swift in Sources */,
@@ -641,6 +652,7 @@
 				A1C60CC621F16ED20017EDE0 /* AppDelegate.swift in Sources */,
 				A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */,
 				A1C60D1721F176F10017EDE0 /* LIOConstants.swift in Sources */,
+				A18DB4DB21F80B3E00A06B2A /* CommentTableViewCell.swift in Sources */,
 				A1FBECC921F694FF0088D4EE /* LIONestedCommentView.swift in Sources */,
 				A1C60CC821F16ED20017EDE0 /* FirstViewController.swift in Sources */,
 			);
