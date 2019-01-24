@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         tableView.estimatedRowHeight = 140
+        tableView.rowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
     }
 }
@@ -37,6 +38,4 @@ extension DetailViewController: UITableViewDataSource {
         cell?.textLabel?.numberOfLines = 0
         return cell!
     }
-    
-    
 }

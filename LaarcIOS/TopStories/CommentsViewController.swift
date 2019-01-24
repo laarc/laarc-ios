@@ -132,15 +132,15 @@ extension CommentsViewController {
 
     func loadTopKids() {
         var index = 0
+
         itemCells.forEach({ cell in
-            print("item", cell.item)
             index += 1
+
             if let kidId = cell.item.kids?.first {
-                print("kidId", kidId)
 
                 self.loadFirstKid(id: kidId) { kidItem in
-                    print("kidItiem")
                     cell.topKid = kidItem
+
                     if index == self.itemsPerPage - 1 {
                         self.tableView.reloadData()
                     }
@@ -153,12 +153,14 @@ extension CommentsViewController {
         LIOApi.shared.getItem(id: id) { data in
             if let data = data as? [String: Any] {
                 let item = LIOItem(item: data)
+
                 self.handleItemLoaded(item: item)
 
                 var finished = false
                 
                 if index < self.itemsPerPage {
                     let nextIndex = index + 1
+
                     if nextIndex < self.itemIds.count {
                         self.loadItem(id: self.itemIds[nextIndex], index: nextIndex)
                     } else {
@@ -178,6 +180,7 @@ extension CommentsViewController {
     func loadTopStoryItems() {
         if itemIds.count > 0 {
             let startingId = itemIds[0]
+
             loadItem(id: startingId, index: 0)
         }
     }
@@ -204,6 +207,7 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.commentLabel.text = cell.item.text ?? ""
             cell.itemTitle.text = cell.item.title ?? "Unknown"
             cell.infoStringLabel.text = LIOUtils.getInfoStringFromItem(item: cell.item)
+            // tap the label to expand and collapse the cell
             let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
             cell.commentLabel.addGestureRecognizer(tap)
             cell.commentLabel.isUserInteractionEnabled = true
@@ -221,9 +225,11 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CommentTableCell
         selectedItem = itemCells[indexPath.row].item
-        // do stuff with selected item
+        if let tap = cell.commentLabel.gestureRecognizers?.first, indexOfCellToExpand >= 0 {
+            expandCell(tap as! UITapGestureRecognizer)
+        }
         if let url = selectedItem?.url {
-            
+            // the cell itself is selected- load the story url in a wkwebview or sfsafariviewcontroller
         }
         self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
@@ -231,13 +237,5 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailsVC = segue.destination as! DetailViewController
         detailsVC.item = selectedItem
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let y: CGFloat = -scrollView.contentOffset.y
-//        if (y < 0) {
-//            overscrollView.frame = CGRect(x: 0, y: scrollView.contentOffset.y, width: view.frame.width, height: 170)
-//            overscrollView.center = CGPoint(x: view.center.x, y: view.center.y)
-//        }
     }
 }
