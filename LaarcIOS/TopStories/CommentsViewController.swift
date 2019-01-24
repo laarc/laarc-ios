@@ -62,9 +62,9 @@ class CommentsViewController: UIViewController {
             expandedLabel = nil
         } else {
             let cell = tableView.cellForRow(at: IndexPath(row: label.tag, section: 0)) as! CommentTableCell
-            cell.movieDescription.sizeToFit()
-            cell.movieDescription.text = description
-            expandedLabel = cell.movieDescription
+            cell.commentLabel.sizeToFit()
+            cell.commentLabel.text = description
+            expandedLabel = cell.commentLabel
             indexOfCellToExpand = label.tag
         }
         tableView.reloadRows(at: [IndexPath(row: label.tag, section: 0)], with: .fade)
@@ -157,10 +157,11 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
 //        let intro = movie["Intro"] as! String
 //        cell.movieTitle.text = title
 //        cell.movieDescription.text = intro
-        cell.movieDescription.tag = indexPath.row
+        cell.commentLabel.text = ipsum
+        cell.commentLabel.tag = indexPath.row
         let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
-        cell.movieDescription.addGestureRecognizer(tap)
-        cell.movieDescription.isUserInteractionEnabled = true
+        cell.commentLabel.addGestureRecognizer(tap)
+        cell.commentLabel.isUserInteractionEnabled = true
         return cell
     }
     
