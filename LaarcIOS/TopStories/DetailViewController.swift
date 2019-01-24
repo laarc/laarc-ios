@@ -12,12 +12,10 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var photo: UIImage!
-    var movie: [String: AnyObject]!
+    var item: LIOItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableHeaderView = UIImageView(image: photo)
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         tableView.estimatedRowHeight = 100
@@ -32,7 +30,10 @@ extension DetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID")
-        cell?.textLabel?.text = movie["Description"] as? String
+        // TODO: visible, loaded comments views
+        if let text = item.text {
+            cell?.textLabel?.text = text
+        }
         cell?.textLabel?.numberOfLines = 0
         return cell!
     }

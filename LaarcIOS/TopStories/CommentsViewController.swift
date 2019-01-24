@@ -151,12 +151,7 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as! CommentTableCell
-//        let movie = self.movies[indexPath.row]
-//        let photoURL = movie["Photo"] as! String
-//        let title = movie["Title"] as! String
-//        let intro = movie["Intro"] as! String
-//        cell.movieTitle.text = title
-//        cell.movieDescription.text = intro
+        cell.item = items[indexPath.row]
         cell.commentLabel.text = ipsum
         cell.commentLabel.tag = indexPath.row
         let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
@@ -173,13 +168,13 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        selectedMovie = movies[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath) as! CommentTableCell
+        selectedItem = items[indexPath.row]
         self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailsVC = segue.destination as! DetailViewController
-//        detailsVC.movie = selectedMovie
+        detailsVC.item = selectedItem
     }
 }
