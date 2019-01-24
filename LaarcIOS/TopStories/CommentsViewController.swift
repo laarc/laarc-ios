@@ -26,6 +26,8 @@ class CommentsViewController: UIViewController {
     
     var itemCells = [CommentCellItem]()
 
+    var overscrollView: UITableViewHeaderFooterView!
+
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
@@ -37,10 +39,16 @@ class CommentsViewController: UIViewController {
         super.viewDidLoad()
         super.viewDidLoad()
         indexOfCellToExpand = -1
+        setupOverscroll()
         setupTable()
         loadTopStoryIds(loadStoriesAfter: true)
     }
-    
+
+    func setupOverscroll() {
+        overscrollView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 170))
+        tableView.addSubview(overscrollView)
+    }
+
     func setupTable() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
@@ -55,6 +63,7 @@ class CommentsViewController: UIViewController {
         items.removeAll()
         itemCells.removeAll()
         itemIds.removeAll()
+        tableView.reloadData()
         loadTopStoryIds(loadStoriesAfter: true)
     }
 
@@ -66,10 +75,12 @@ class CommentsViewController: UIViewController {
             expandedLabel = nil
         } else {
             let cell = tableView.cellForRow(at: IndexPath(row: label.tag, section: 0)) as! CommentTableCell
-            cell.commentLabel.sizeToFit()
-            cell.commentLabel.text = description
-            expandedLabel = cell.commentLabel
-            indexOfCellToExpand = label.tag
+            if let text = cell.commentLabel.text, !text.isEmpty {
+                cell.commentLabel.sizeToFit()
+                cell.commentLabel.text = description
+                expandedLabel = cell.commentLabel
+                indexOfCellToExpand = label.tag
+            }
         }
         tableView.reloadRows(at: [IndexPath(row: label.tag, section: 0)], with: .fade)
         tableView.scrollToRow(at: IndexPath(row: label.tag, section: 0), at: .top, animated: true)
@@ -184,29 +195,32 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemCells.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as! CommentTableCell
-        cell.item = itemCells[indexPath.row].item
-        cell.commentLabel.tag = indexPath.row
-        cell.commentLabel.text = cell.item.text ?? ""
-        cell.itemTitle.text = cell.item.title ?? "Unknown"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
-        cell.commentLabel.addGestureRecognizer(tap)
-        cell.commentLabel.isUserInteractionEnabled = true
+        if itemCells.count >= indexPath.row {
+            cell.item = itemCells[indexPath.row].item
+            cell.commentLabel.tag = indexPath.row
+            cell.commentLabel.text = cell.item.text ?? ""
+            cell.itemTitle.text = cell.item.title ?? "Unknown"
+            cell.infoStringLabel.text = LIOUtils.getInfoStringFromItem(item: cell.item)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
+            cell.commentLabel.addGestureRecognizer(tap)
+            cell.commentLabel.isUserInteractionEnabled = true
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let expandedLabel = expandedLabel, indexPath.row == indexOfCellToExpand {
-            return 170 + expandedLabel.frame.height - 38
+            return 150 + expandedLabel.frame.height - 38
         }
-        return 170
+        return 150
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CommentTableCell
-        selectedItem = items[indexPath.row]
+        selectedItem = itemCells[indexPath.row].item
         // do stuff with selected item
         if let url = selectedItem?.url {
             
@@ -217,5 +231,13 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailsVC = segue.destination as! DetailViewController
         detailsVC.item = selectedItem
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let y: CGFloat = -scrollView.contentOffset.y
+//        if (y < 0) {
+//            overscrollView.frame = CGRect(x: 0, y: scrollView.contentOffset.y, width: view.frame.width, height: 170)
+//            overscrollView.center = CGPoint(x: view.center.x, y: view.center.y)
+//        }
     }
 }

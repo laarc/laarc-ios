@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 140
         // Do any additional setup after loading the view.
     }
 }

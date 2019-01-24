@@ -13,6 +13,7 @@ class CommentTableCell: UITableViewCell {
     @IBOutlet weak var actionsView: UIView!
     @IBOutlet var commentLabel: UILabel!
     @IBOutlet var itemTitle: UILabel!
+    @IBOutlet var infoStringLabel: UILabel!
 
     var item: LIOItem!
 
