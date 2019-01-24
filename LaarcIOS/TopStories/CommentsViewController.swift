@@ -23,6 +23,8 @@ class CommentsViewController: UIViewController {
 
     var isRefreshing = false
     var itemsPerPage = 30
+    
+    var itemCells = [CommentCellItem]()
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -50,8 +52,10 @@ class CommentsViewController: UIViewController {
 
     @objc func handleRefresh(_ sender: Any) {
         isRefreshing = true
-//        loadedTopStoryItems.removeAll()
-//        loadTopStoryIds(loadStoriesAfter: true)
+        items.removeAll()
+        itemCells.removeAll()
+        itemIds.removeAll()
+        loadTopStoryIds(loadStoriesAfter: true)
     }
 
     @objc func expandCell(_ sender: UITapGestureRecognizer) {
@@ -86,8 +90,13 @@ extension CommentsViewController {
     }
     
     func replaceItemsWithLoadedItems() {
-//        topStoryItems.removeAll()
-//        topStoryItems.append(contentsOf: loadedTopStoryItems)
+        itemCells.removeAll()
+        itemCells = items.map({ i in
+            let commentCellItem = CommentCellItem()
+            commentCellItem.item = i
+            return commentCellItem
+        })
+        loadTopKids()
         tableView.reloadData()
         if isRefreshing {
             isRefreshing = false
@@ -98,8 +107,35 @@ extension CommentsViewController {
     func handleItemLoaded(item: LIOItem) {
         if (item.title != nil) {
             items.append(item)
-//            loadedTopStoryItems.append(item)
         }
+    }
+
+    func loadFirstKid(id: Int, completion: @escaping (LIOItem) -> Void) {
+        LIOApi.shared.getItem(id: id) { data in
+            if let data = data as? [String: Any] {
+                let item = LIOItem(item: data)
+                completion(item)
+            }
+        }
+    }
+
+    func loadTopKids() {
+        var index = 0
+        itemCells.forEach({ cell in
+            print("item", cell.item)
+            index += 1
+            if let kidId = cell.item.kids?.first {
+                print("kidId", kidId)
+
+                self.loadFirstKid(id: kidId) { kidItem in
+                    print("kidItiem")
+                    cell.topKid = kidItem
+                    if index == self.itemsPerPage - 1 {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        })
     }
     
     func loadItem(id: Int, index: Int) {
@@ -107,7 +143,7 @@ extension CommentsViewController {
             if let data = data as? [String: Any] {
                 let item = LIOItem(item: data)
                 self.handleItemLoaded(item: item)
-                
+
                 var finished = false
                 
                 if index < self.itemsPerPage {
@@ -146,14 +182,15 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return itemCells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as! CommentTableCell
-        cell.item = items[indexPath.row]
-        cell.commentLabel.text = ipsum
+        cell.item = itemCells[indexPath.row].item
         cell.commentLabel.tag = indexPath.row
+        cell.commentLabel.text = cell.item.text ?? ""
+        cell.itemTitle.text = cell.item.title ?? "Unknown"
         let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
         cell.commentLabel.addGestureRecognizer(tap)
         cell.commentLabel.isUserInteractionEnabled = true
@@ -170,6 +207,10 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CommentTableCell
         selectedItem = items[indexPath.row]
+        // do stuff with selected item
+        if let url = selectedItem?.url {
+            
+        }
         self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
 

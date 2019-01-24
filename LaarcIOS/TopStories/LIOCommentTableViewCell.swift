@@ -11,6 +11,7 @@ import UIKit
 class CommentCellItem {
     var item: LIOItem!
     var isExpanded = false
+    var topKid: LIOItem!
 
     func toggleExpanded() {
         isExpanded = !isExpanded
