@@ -10,6 +10,7 @@ import UIKit
 
 class LIOTopStoryDetailViewController: UIViewController {
     @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var openButton: UIBarButtonItem!
     @IBOutlet weak var titleItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,10 +24,21 @@ class LIOTopStoryDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    @objc func openURL() {
+        let url = item?.url;
+        if (url != nil) {
+            let u = URL.init(string: url!);
+            if (u != nil && url! != "about:blank") {
+                UIApplication.shared.open(u!);
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         doneButton.action = #selector(goBack)
+        openButton.action = #selector(openURL)
 
         tableView.delegate = self
         tableView.dataSource = self
