@@ -4,3 +4,7 @@ Pods
 # firebase app info
 GoogleService-Info.plist
 
+
+xcshareddata/
+xcuserdata/
+*.xcuserdatad
