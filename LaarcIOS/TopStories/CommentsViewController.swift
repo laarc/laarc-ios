@@ -27,6 +27,7 @@ class CommentsViewController: UIViewController {
     var itemCells = [CommentCellItem]()
 
     var overscrollView: UITableViewHeaderFooterView!
+    var scrollPosition: CGFloat = 0
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -84,6 +85,13 @@ class CommentsViewController: UIViewController {
         }
         tableView.reloadRows(at: [IndexPath(row: label.tag, section: 0)], with: .fade)
         tableView.scrollToRow(at: IndexPath(row: label.tag, section: 0), at: .top, animated: true)
+    }
+    
+    @objc func showItemDetail(_ sender: UITapGestureRecognizer) {
+        let label = sender.view as! UILabel
+        let cell = tableView.cellForRow(at: IndexPath(row: label.tag - 1, section: 0)) as! CommentTableCell
+        selectedItem = cell.item
+        self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
 }
 
@@ -211,6 +219,10 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
             let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
             cell.commentLabel.addGestureRecognizer(tap)
             cell.commentLabel.isUserInteractionEnabled = true
+            let subTap = UITapGestureRecognizer(target: self, action: #selector(showItemDetail(_:)))
+            cell.infoStringLabel.addGestureRecognizer(subTap)
+            cell.infoStringLabel.isUserInteractionEnabled = true
+            cell.infoStringLabel.tag = indexPath.row + 1
         }
         return cell
     }
@@ -228,10 +240,9 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
         if let tap = cell.commentLabel.gestureRecognizers?.first, indexOfCellToExpand >= 0 {
             expandCell(tap as! UITapGestureRecognizer)
         }
-        if let url = selectedItem?.url {
-            // the cell itself is selected- load the story url in a wkwebview or sfsafariviewcontroller
+        if let urlString = selectedItem?.url, let url = URL(string: urlString)  {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
