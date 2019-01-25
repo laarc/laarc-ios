@@ -23,11 +23,18 @@ class LIOTopStoryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true;
+    }
+
+    
     func configure(item: LIOItem, number: Int) {
-        numberLabel.text = String(number)
+        numberLabel.text = String(number) + "."
         titleLabel.text = item.title ?? "No title"
         let infoString = LIOUtils.getInfoStringFromItem(item: item)
         itemInfoLabel.text = infoString
+        ;
     }
 
 }

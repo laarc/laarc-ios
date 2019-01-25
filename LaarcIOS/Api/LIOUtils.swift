@@ -22,6 +22,15 @@ struct LIOUtils {
             let timeAgo = timeAgoSinceDate(time: time, numericDates: true)
             infoString.append(contentsOf: timeAgo)
         }
+        infoString.append(" | ");
+        let n = item.descendants;
+        if (n != nil && n! > 0) {
+            infoString.append(String(n!) + " " + (n! == 1 ? "comment" : "comments"));
+        } else if (item.text != nil && item.text!.count > 0) {
+            infoString.append("read");
+        } else {
+            infoString.append("discuss");
+        }
         return infoString
     }
 }

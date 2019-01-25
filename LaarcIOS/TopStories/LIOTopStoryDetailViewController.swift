@@ -8,9 +8,14 @@
 
 import UIKit
 
-class LIOTopStoryDetailViewController: UIViewController {
+let hn_site = "https://news.ycombinator.com";
+let ln_site = "https://www.laarc.io";
+let site = ln_site;
+
+class LIOTopStoryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var openButton: UIBarButtonItem!
+    @IBOutlet weak var threadButton: UIBarButtonItem!
     @IBOutlet weak var titleItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,7 +28,7 @@ class LIOTopStoryDetailViewController: UIViewController {
     @objc func goBack() {
         navigationController?.popViewController(animated: true)
     }
-
+    
     @objc func openURL() {
         let url = item?.url;
         if (url != nil) {
@@ -33,12 +38,44 @@ class LIOTopStoryDetailViewController: UIViewController {
             }
         }
     }
+    
+    @objc func openThread() {
+        let id = item?.id;
+        if (id != nil) {
+            let url = site + "/item?id=" + String(id!);
+            let u = URL.init(string: url);
+            if (u != nil && url != "about:blank") {
+                UIApplication.shared.open(u!);
+            }
+        }
+    }
+//
+//    - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//    [super pushViewController:viewController animated:animated];
+//    self.interactivePopGestureRecognizer.enabled = NO;
+//    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true;
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true;
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return otherGestureRecognizer.isKind(of: UIScreenEdgePanGestureRecognizer.self);
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
 
         doneButton.action = #selector(goBack)
         openButton.action = #selector(openURL)
+        threadButton.action = #selector(openThread)
 
         tableView.delegate = self
         tableView.dataSource = self
