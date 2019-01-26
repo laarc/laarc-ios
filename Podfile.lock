@@ -58,11 +58,17 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SwiftScanner (1.0.3)
+  - SwiftyComments (0.2.0):
+    - SwipeCellKit
+  - SwipeCellKit (2.5.0)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - InputBarAccessoryView
+  - SwiftScanner (~> 1.0.2)
+  - SwiftyComments (from `https://github.com/tsucres/SwiftyComments.git`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -77,6 +83,17 @@ SPEC REPOS:
     - InputBarAccessoryView
     - leveldb-library
     - nanopb
+    - SwiftScanner
+    - SwipeCellKit
+
+EXTERNAL SOURCES:
+  SwiftyComments:
+    :git: https://github.com/tsucres/SwiftyComments.git
+
+CHECKOUT OPTIONS:
+  SwiftyComments:
+    :commit: 3c90b56327db9d30bbedf9b329acec4e5367c9ca
+    :git: https://github.com/tsucres/SwiftyComments.git
 
 SPEC CHECKSUMS:
   Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
@@ -90,7 +107,10 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 2f6adae6699d2fd7769678d9b4287f481ae18ebb
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SwiftScanner: 70897e82bece6e6a0803b105efed6118c46fa20e
+  SwiftyComments: 864260f481d4159118e1ee9c0ad2c9a95693fa94
+  SwipeCellKit: d8f2617538ce3021cb0a11d1b93856a06a2f2e20
 
-PODFILE CHECKSUM: 7489879344792fab326b4e2d3ab9768b75fd143f
+PODFILE CHECKSUM: 497e92364fb16c00e4abb043700af852ababa391
 
 COCOAPODS: 1.5.3

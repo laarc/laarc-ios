@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CommentTableCell: UITableViewCell {
+class LIOCommentTableCell: UITableViewCell {
     
     @IBOutlet weak var actionsView: UIView!
-    @IBOutlet var commentLabel: UILabel!
-    @IBOutlet var itemTitle: UILabel!
-    @IBOutlet var infoStringLabel: UILabel!
+//    @IBOutlet var commentLabel: UILabel!
+//    @IBOutlet var itemTitle: UILabel!
+//    @IBOutlet var infoStringLabel: UILabel!
 
     var item: LIOItem!
 

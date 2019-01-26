@@ -9,6 +9,8 @@ target 'LaarcIOS' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'InputBarAccessoryView'
+  pod 'SwiftyComments', :git => 'https://github.com/tsucres/SwiftyComments.git'
+  pod 'SwiftScanner', '~> 1.0.2'
 
   target 'LaarcIOSTests' do
     inherit! :search_paths

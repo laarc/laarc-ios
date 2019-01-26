@@ -10,7 +10,7 @@ import UIKit
 
 public let BIRD_GREEN = UIColor(red: 102/255, green: 170/255, blue: 170/255, alpha: 1.0)
 
-class CommentsViewController: UIViewController {
+class LIOCommentsViewController: UIViewController {
     @IBOutlet weak var actionsView: UIView!
     @IBOutlet weak var tableView: UITableView!
 
@@ -75,13 +75,13 @@ class CommentsViewController: UIViewController {
             indexOfCellToExpand = -1
             expandedLabel = nil
         } else {
-            let cell = tableView.cellForRow(at: IndexPath(row: label.tag, section: 0)) as! CommentTableCell
-            if let text = cell.commentLabel.text, !text.isEmpty {
-                cell.commentLabel.sizeToFit()
-                cell.commentLabel.text = description
-                expandedLabel = cell.commentLabel
+            let cell = tableView.cellForRow(at: IndexPath(row: label.tag, section: 0)) as! LIOCommentTableCell
+//            if let text = cell.commentLabel.text, !text.isEmpty {
+//                cell.commentLabel.sizeToFit()
+//                cell.commentLabel.text = description
+//                expandedLabel = cell.commentLabel
                 indexOfCellToExpand = label.tag
-            }
+//            }
         }
         tableView.reloadRows(at: [IndexPath(row: label.tag, section: 0)], with: .fade)
         tableView.scrollToRow(at: IndexPath(row: label.tag, section: 0), at: .top, animated: true)
@@ -89,13 +89,13 @@ class CommentsViewController: UIViewController {
     
     @objc func showItemDetail(_ sender: UITapGestureRecognizer) {
         let label = sender.view as! UILabel
-        let cell = tableView.cellForRow(at: IndexPath(row: label.tag - 1, section: 0)) as! CommentTableCell
+        let cell = tableView.cellForRow(at: IndexPath(row: label.tag - 1, section: 0)) as! LIOCommentTableCell
         selectedItem = cell.item
         self.performSegue(withIdentifier: "ShowDetails", sender: self)
     }
 }
 
-extension CommentsViewController {
+extension LIOCommentsViewController {
     func loadTopStoryIds(loadStoriesAfter: Bool) {
         LIOApi.shared.getTopStoriesOnce() { data in
             if let storyIds = data as? [Int] {
@@ -198,7 +198,7 @@ extension CommentsViewController {
     }
 }
 
-extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
+extension LIOCommentsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -208,21 +208,21 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as! CommentTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as! LIOCommentTableCell
         if itemCells.count >= indexPath.row {
             cell.item = itemCells[indexPath.row].item
-            cell.commentLabel.tag = indexPath.row
-            cell.commentLabel.text = cell.item.text ?? ""
-            cell.itemTitle.text = cell.item.title ?? "Unknown"
-            cell.infoStringLabel.text = LIOUtils.getInfoStringFromItem(item: cell.item)
+//            cell.commentLabel.tag = indexPath.row
+//            cell.commentLabel.text = cell.item.text ?? ""
+//            cell.itemTitle.text = cell.item.title ?? "Unknown"
+//            cell.infoStringLabel.text = LIOUtils.getInfoStringFromItem(item: cell.item)
             // tap the label to expand and collapse the cell
             let tap = UITapGestureRecognizer(target: self, action: #selector(expandCell(_:)))
-            cell.commentLabel.addGestureRecognizer(tap)
-            cell.commentLabel.isUserInteractionEnabled = true
+//            cell.commentLabel.addGestureRecognizer(tap)
+//            cell.commentLabel.isUserInteractionEnabled = true
             let subTap = UITapGestureRecognizer(target: self, action: #selector(showItemDetail(_:)))
-            cell.infoStringLabel.addGestureRecognizer(subTap)
-            cell.infoStringLabel.isUserInteractionEnabled = true
-            cell.infoStringLabel.tag = indexPath.row + 1
+//            cell.infoStringLabel.addGestureRecognizer(subTap)
+//            cell.infoStringLabel.isUserInteractionEnabled = true
+//            cell.infoStringLabel.tag = indexPath.row + 1
         }
         return cell
     }
@@ -235,11 +235,11 @@ extension CommentsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! CommentTableCell
+        let cell = tableView.cellForRow(at: indexPath) as! LIOCommentTableCell
         selectedItem = itemCells[indexPath.row].item
-        if let tap = cell.commentLabel.gestureRecognizers?.first, indexOfCellToExpand >= 0 {
-            expandCell(tap as! UITapGestureRecognizer)
-        }
+//        if let tap = cell.commentLabel.gestureRecognizers?.first, indexOfCellToExpand >= 0 {
+//            expandCell(tap as! UITapGestureRecognizer)
+//        }
         if let urlString = selectedItem?.url, let url = URL(string: urlString)  {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
