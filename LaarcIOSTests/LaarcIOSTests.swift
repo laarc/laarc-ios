@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import LaarcIOS
+//@testable import LaarcIOS
 
 class LaarcIOSTests: XCTestCase {
 
