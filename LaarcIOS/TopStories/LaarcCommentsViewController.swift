@@ -117,6 +117,7 @@ class LaarcCommentsViewController: CommentsViewController {
     func loadLaarcCommentData(completion: @escaping (([AttributedTextComment]) -> Void)) {
         guard let storyId = story.id else { return }
 
+        print(storyId)
         LIOApi.shared.getItem(id: storyId) { data in
             var laarcComments = [AttributedTextComment]()
 
@@ -135,6 +136,8 @@ class LaarcCommentsViewController: CommentsViewController {
                             }
                         }
                     }
+                } else {
+                    completion([])
                 }
             }
         }

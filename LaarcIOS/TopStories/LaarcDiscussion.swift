@@ -136,6 +136,7 @@ class LaarcStory: BaseComment {
     
     convenience init(commentData: [String: Any]) {
         self.init(level: 0, replyTo: nil)
+        self.id = commentData["id"] as? Int
         self.by = commentData["by"] as? String
         self.score = commentData["score"] as? Int
         self.text = commentData["text"] as? String

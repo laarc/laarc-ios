@@ -10,7 +10,7 @@ import UIKit
 import SwiftyComments
 
 class FoldableStoriesViewController: LaarcStoriesViewController, CommentsViewDelegate {
-    
+
     func commentCellExpanded(atIndex index: Int) {
         updateCellFoldState(false, atIndex: index)
     }
@@ -37,19 +37,29 @@ class FoldableStoriesViewController: LaarcStoriesViewController, CommentsViewDel
         self.delegate = self
     }
     
+    override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
+        let storyCell = super.commentsView(tableView, commentCellForModel: commentModel, atIndexPath: indexPath) as! LaarcStoryCell
+        storyCell.storyDelegate = self
+        storyCell.storyIndex = indexPath.row
+        return storyCell
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedIndex = indexPath.row
-        let selectedStory: AbstractComment = currentlyDisplayed[selectedIndex]
+        showDetailView(forStoryAt: indexPath.row)
+    }
+}
 
+extension FoldableStoriesViewController: LaarcStoryDelegate {
+    func expanderElementWasTapped(index: Int) {
+        let selectedStory: AbstractComment = currentlyDisplayed[index]
+        
         // Enable cell folding for stories without replies
         if selectedStory.replies.count == 0 {
             if (selectedStory as! LaarcStory).isFolded {
-                commentCellExpanded(atIndex: selectedIndex)
+                commentCellExpanded(atIndex: index)
             } else {
-                commentCellFolded(atIndex: selectedIndex)
+                commentCellFolded(atIndex: index)
             }
-        } else {
-            super.tableView(tableView, didSelectRowAt: indexPath)
         }
     }
 }
@@ -96,7 +106,6 @@ class LaarcStoriesViewController: CommentsViewController {
         storyCell.date = story.timeAgo
         storyCell.nReplies = story.kids?.count ?? 0
         storyCell.isFolded = story.isFolded && !isCellExpanded(indexPath: indexPath)
-        storyCell.storyDelegate = self
         return storyCell
     }
     
@@ -166,16 +175,10 @@ class LaarcStoriesViewController: CommentsViewController {
     }
     
     func showDetailView(forStoryAt index: Int) {
-        guard stories.count > index else { return }
+        guard currentlyDisplayed.count > index else { return }
 
         let commentsVC = FoldableCommentsViewController()
-        commentsVC.story = stories[index]
+        commentsVC.story = currentlyDisplayed[index] as! LaarcStory
         navigationController?.pushViewController(commentsVC, animated: true)
-    }
-}
-
-extension LaarcStoriesViewController: LaarcStoryDelegate {
-    func expanderElementWasTapped(index: Int) {
-        showDetailView(forStoryAt: index)
     }
 }

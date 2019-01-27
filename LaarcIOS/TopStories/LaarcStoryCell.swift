@@ -100,6 +100,7 @@ class LaarcStoryCell: CommentCell {
         self.rootCommentMarginColor = ColorConstantsAlt.rootCommentMarginColor
         self.indentationColor = ColorConstantsAlt.rootCommentMarginColor
         self.commentMargin = 0
+//        self.setupGestures()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -112,7 +113,7 @@ class LaarcStoryCell: CommentCell {
     
     func setupGestures() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(expanderElementTappedAction(_:)))
-        (commentViewContent as! LaarcStoryCellView).bodyView.addGestureRecognizer(tap)
+        content.bodyView.addGestureRecognizer(tap)
     }
 }
 
@@ -316,6 +317,7 @@ class LaarcStoryCellView: UIView {
         let lbl = UITextView()
         lbl.isEditable = false
         lbl.isScrollEnabled = false
+        lbl.isUserInteractionEnabled = true
         lbl.textAlignment = .left
         lbl.backgroundColor = .clear
         lbl.font = UIFont.italicSystemFont(ofSize: 12)
