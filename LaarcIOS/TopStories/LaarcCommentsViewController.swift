@@ -59,6 +59,8 @@ class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewD
 class LaarcCommentsViewController: CommentsViewController {
     private let commentCellId = "hnComentCellId"
     var allComments = [AttributedTextComment]()
+    
+    var story: LaarcStory!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +97,7 @@ class LaarcCommentsViewController: CommentsViewController {
         commentCell.level = comment.level
         commentCell.commentContentAttributed = comment.attributedContent
         commentCell.posterName = comment.by
-        commentCell.date = comment.soMuchTimeAgo()
+        commentCell.date = comment.timeAgo
         commentCell.nReplies = comment.kids?.count ?? 0
         commentCell.isFolded = comment.isFolded && !isCellExpanded(indexPath: indexPath)
         return commentCell
@@ -113,7 +115,9 @@ class LaarcCommentsViewController: CommentsViewController {
     }
 
     func loadLaarcCommentData(completion: @escaping (([AttributedTextComment]) -> Void)) {
-        LIOApi.shared.getItem(id: 753) { data in
+        guard let storyId = story.id else { return }
+
+        LIOApi.shared.getItem(id: storyId) { data in
             var laarcComments = [AttributedTextComment]()
 
             if let data = data as? [String: Any] {
@@ -134,25 +138,6 @@ class LaarcCommentsViewController: CommentsViewController {
                 }
             }
         }
-//        LIOApi.shared.getTopStoriesOnce() { idsData in
-//            if let idsData = idsData as? [Int] {
-//                let topStoryId = idsData[0]
-//                LIOApi.shared.getItem(id: topStoryId) { data in
-//                    if let data = data as? [String: Any] {
-//                        let storyItem = LIOItem(item: data)
-//                        if let kids = storyItem.kids {
-//
-//                        }
-//                    }
-//                }
-//                let items = idsData[0..<commentsToLoad].map({ id in
-//                    LIOApi.shared.getItem(id: id) { item in
-//                        if let item = item as? [String: Any] {
-//                        }
-//                    }
-//                })
-//            }
-//        }
     }
 }
 

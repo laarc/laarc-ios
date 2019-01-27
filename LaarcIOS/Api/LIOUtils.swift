@@ -9,19 +9,31 @@
 import Foundation
 
 struct LIOUtils {
-    static func getInfoStringFromItem(item: LIOItem) -> String {
+    static func getInfoString(score: Int?, by: String?, time: Double?) -> String {
         var infoString = ""
-        if let score = item.score {
+        if let score = score {
             let pointsString = score == 1 ? "point" : "points"
             infoString.append(contentsOf: "\(score) \(pointsString) ")
         }
-        if let by = item.by {
+        if let by = by {
             infoString.append(contentsOf: "by \(by) ")
         }
-        if let time = item.time {
+        if let time = time {
             let timeAgo = timeAgoSinceDate(time: time, numericDates: true)
             infoString.append(contentsOf: timeAgo)
         }
         return infoString
+    }
+
+    static func getInfoStringFromItem(item: LIOItem) -> String {
+        return getInfoString(score: item.score, by: item.by, time: item.time)
+    }
+
+    static func getInfoStringFromItem(item: LaarcComment) -> String {
+        return getInfoString(score: item.score, by: item.by, time: item.time)
+    }
+    
+    static func getInfoStringFromItem(item: LaarcStory) -> String {
+        return getInfoString(score: item.score, by: item.by, time: item.time)
     }
 }

@@ -16,7 +16,7 @@ class LaarcDiscussion {
      Builds a discussion and its comment tree.
      - parameters:
      - comments: all the comments
-     - maximumChildren: maximum number of replies to a comment. This number is randomly chosen.
+     - maximumChildren: maximum number of replies to a comment.
      */
     static func build(comments: [LaarcComment], maximumChildren: Int = -1) -> LaarcDiscussion {
         let discussion = LaarcDiscussion()
@@ -31,7 +31,7 @@ class LaarcDiscussion {
     }
     
     /**
-     Parse and generate a acomment
+     Parse and generate a comment
      */
     static func parse(laarcComment comment: LaarcComment) -> AttributedTextComment {
         let com = AttributedTextComment()
@@ -65,22 +65,18 @@ class LaarcDiscussion {
     }
 }
 
-/// Model of a comment with attributedText content.
+// model of a comment with attributed text content
 class AttributedTextComment: LaarcComment {
     var attributedContent: NSAttributedString?
 }
 
 
 /**
- This class models a comment with all the most
- common attributes in the commenting systems.
- It's used as an exemple through the implemented
- commenting systems.
+ model of a comment with all item attributes.
  **/
 class LaarcComment: BaseComment {
     var id: Int!
     var score: Int?
-    var downvotes: Int?
     var text: String?
     var title: String?
     var by: String?
@@ -108,40 +104,61 @@ class LaarcComment: BaseComment {
         self.dead = commentData["dead"] as? Bool ?? false
     }
     
-    /**
-     Express the postedDate in following format: "[x] [time period] ago"
-     */
-    func soMuchTimeAgo() -> String? {
-        if self.time == nil {
-            return nil
+    var timeAgo: String {
+        get {
+            if let time = time {
+                return timeAgoSinceDate(time: time, numericDates: true)
+            }
+            return ""
         }
-        let diff = Date().timeIntervalSince1970 - self.time!
-        var str: String = ""
-        if  diff < 60 {
-            str = "now"
-        } else if diff < 3600 {
-            let out = Int(round(diff/60))
-            str = (out == 1 ? "1 minute ago" : "\(out) minutes ago")
-        } else if diff < 3600 * 24 {
-            let out = Int(round(diff/3600))
-            str = (out == 1 ? "1 hour ago" : "\(out) hours ago")
-        } else if diff < 3600 * 24 * 2 {
-            str = "yesterday"
-        } else if diff < 3600 * 24 * 7 {
-            let out = Int(round(diff/(3600*24)))
-            str = (out == 1 ? "1 day ago" : "\(out) days ago")
-        } else if diff < 3600 * 24 * 7 * 4{
-            let out = Int(round(diff/(3600*24*7)))
-            str = (out == 1 ? "1 week ago" : "\(out) weeks ago")
-        } else if diff < 3600 * 24 * 7 * 4 * 12{
-            let out = Int(round(diff/(3600*24*7*4)))
-            str = (out == 1 ? "1 month ago" : "\(out) months ago")
-        } else {//if diff < 3600 * 24 * 7 * 4 * 12{
-            let out = Int(round(diff/(3600*24*7*4*12)))
-            str = (out == 1 ? "1 year ago" : "\(out) years ago")
-        }
-        return str
     }
+}
+
+/**
+ model of a story with all the item attributes.
+ **/
+class LaarcStory: BaseComment {
+    var id: Int!
+    var score: Int?
+    var text: String?
+    var title: String?
+    var by: String?
+    var time: Double? // unix
+    var upvoted: Bool = false
+    var downvoted: Bool = false
+    var isFolded: Bool = false
+    var type: ItemType = .story
+    var url: URL?
+    var kids: [Int]?
+    var parent: Int?
+    var deleted: Bool!
+    var dead: Bool!
+    
+    convenience init(commentData: [String: Any]) {
+        self.init(level: 0, replyTo: nil)
+        self.by = commentData["by"] as? String
+        self.score = commentData["score"] as? Int
+        self.text = commentData["text"] as? String
+        self.title = commentData["title"] as? String
+        self.time = commentData["time"] as? Double
+        self.kids = commentData["kids"] as? [Int]
+        self.parent = commentData["parent"] as? Int
+        self.deleted = commentData["deleted"] as? Bool ?? false
+        self.dead = commentData["dead"] as? Bool ?? false
+    }
+    
+    var timeAgo: String {
+        get {
+            if let time = time {
+                return timeAgoSinceDate(time: time, numericDates: true)
+            }
+            return ""
+        }
+    }
+}
+
+class LaarcTopStory: LaarcStory {
+    var topCommentText: String?
 }
 
 class BaseComment: AbstractComment {

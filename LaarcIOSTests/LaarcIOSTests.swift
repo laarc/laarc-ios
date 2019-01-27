@@ -7,7 +7,7 @@
 //
 
 import XCTest
-//@testable import LaarcIOS
+@testable import Pods_LaarcIOSShareExtension
 
 class LaarcIOSTests: XCTestCase {
 
