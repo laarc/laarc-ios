@@ -62,6 +62,14 @@ extension FoldableStoriesViewController: LaarcStoryDelegate {
             }
         }
     }
+    
+    func replyButtonTapped(index: Int) {
+        showDetailView(forStoryAt: index)
+    }
+    
+    func contentCellTapped(index: Int) {
+        showDetailView(forStoryAt: index)
+    }
 }
 
 class LaarcStoriesViewController: CommentsViewController {
@@ -71,6 +79,7 @@ class LaarcStoriesViewController: CommentsViewController {
     var topStoryIds = [Int]()
     var currentPage = 1
     let itemsPerPage = 30
+    var noopStoryIds = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +92,7 @@ class LaarcStoriesViewController: CommentsViewController {
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadLaarcTopStoryIds() { topStoryIds in
-                self.topStoryIds.removeAll()
-                self.stories.removeAll()
+                self.clearStoryLists()
                 self.topStoryIds = topStoryIds
                 self.loadTopStoryData(id: topStoryIds[0], index: 0) {
                     DispatchQueue.main.async {
@@ -94,6 +102,12 @@ class LaarcStoriesViewController: CommentsViewController {
                 }
             }
         }
+    }
+    
+    func clearStoryLists() {
+        self.topStoryIds.removeAll()
+        self.stories.removeAll()
+        self.noopStoryIds.removeAll()
     }
 
     override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
@@ -115,8 +129,8 @@ class LaarcStoriesViewController: CommentsViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = ColorConstants.flashyColor
-        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = ColorConstantsAlt.accentColor
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
     func loadCommentViews() {
@@ -141,8 +155,9 @@ class LaarcStoriesViewController: CommentsViewController {
         LIOApi.shared.getItem(id: id) { data in
             if let data = data as? [String: Any] {
                 let storyItem = LaarcTopStory(commentData: data)
+                let isNoop = storyItem.dead || storyItem.deleted || storyItem.title == nil || storyItem.title!.isEmpty
 
-                if let kids = storyItem.kids, kids.count > 0 {
+                if let kids = storyItem.kids, kids.count > 0, isNoop == false {
                     let topCommentId = kids[0]
                     LIOApi.shared.getItem(id: topCommentId) { commentData in
                         if let commentData = commentData as? [String: Any] {
@@ -151,6 +166,9 @@ class LaarcStoriesViewController: CommentsViewController {
                         self.appendStoryCheckIndex(story: storyItem, index: index, completion: completion)
                     }
                 } else {
+                    if isNoop {
+                        self.noopStoryIds.append(storyItem.id)
+                    }
                     self.appendStoryCheckIndex(story: storyItem, index: index, completion: completion)
                 }
             }
@@ -162,11 +180,17 @@ class LaarcStoriesViewController: CommentsViewController {
         index: Int,
         completion: @escaping (() -> Void)
         ) {
-        stories.append(story)
+        if !noopStoryIds.contains(story.id) {
+            stories.append(story)
+        }
+
         let nextIdx = index + 1
-        let upperBound = (currentPage * itemsPerPage) - 1
-        
-        if nextIdx < upperBound {
+        let numNoops = noopStoryIds.count
+        let upperBound = ((currentPage * itemsPerPage) - 1) + numNoops
+        let lastIndex = topStoryIds.count - 1
+        let cutoff = min(upperBound, lastIndex)
+
+        if nextIdx < cutoff {
             let nextId = self.topStoryIds[index + 1]
             self.loadTopStoryData(id: nextId, index: index + 1, completion: completion)
         } else {

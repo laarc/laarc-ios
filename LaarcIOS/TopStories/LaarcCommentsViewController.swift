@@ -13,6 +13,8 @@ let commentsToLoad = 30
 
 class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewDelegate {
 
+    let headerIdenfifiter = "storyHeaderCellId"
+
     func commentCellExpanded(atIndex index: Int) {
         updateCellFoldState(false, atIndex: index)
     }
@@ -38,6 +40,15 @@ class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewD
         super.viewDidLoad()
         self.delegate = self
     }
+
+//    func makeHeaderView() -> LaarcStoryHeader {
+//        let header = LaarcStoryHeader(style: UITableViewCell.CellStyle.default, reuseIdentifier: headerIdenfifiter)
+//        header.itemTitle = story.title
+//        header.itemText = story.text
+//        let infoString = LIOUtils.getInfoStringFromItem(item: story)
+//        header.postInfo = infoString
+//        return header
+//    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndex = indexPath.row
@@ -66,7 +77,7 @@ class LaarcCommentsViewController: CommentsViewController {
         super.viewDidLoad()
         tableView.register(LaarcCommentCellAlt.self, forCellReuseIdentifier: commentCellId)
 
-        tableView.backgroundColor = ColorConstants.backgroundColorMed
+        tableView.backgroundColor = ColorConstantsAlt.bodyColor
 
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
@@ -102,11 +113,11 @@ class LaarcCommentsViewController: CommentsViewController {
         commentCell.isFolded = comment.isFolded && !isCellExpanded(indexPath: indexPath)
         return commentCell
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = ColorConstants.flashyColor
-        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barTintColor = ColorConstantsAlt.accentColor
+        self.navigationController?.navigationBar.tintColor = .black
     }
 
     func loadCommentViews() {
@@ -117,7 +128,6 @@ class LaarcCommentsViewController: CommentsViewController {
     func loadLaarcCommentData(completion: @escaping (([AttributedTextComment]) -> Void)) {
         guard let storyId = story.id else { return }
 
-        print(storyId)
         LIOApi.shared.getItem(id: storyId) { data in
             var laarcComments = [AttributedTextComment]()
 

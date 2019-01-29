@@ -19,6 +19,7 @@ struct ColorConstantsAlt {
     static let textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     static let rootCommentMarginColor = #colorLiteral(red: 0.6039215686, green: 0.7294117647, blue: 0.6666666667, alpha: 1)
     static let metadataColor = #colorLiteral(red: 0.4038896859, green: 0.4039401412, blue: 0.4038665593, alpha: 1)
+    static let bodyColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.937254902, alpha: 1)
 }
 
 class LaarcCommentCellAlt: CommentCell {
@@ -92,10 +93,10 @@ class LaarcCommentCellAlt: CommentCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.commentViewContent = LaarcCommentViewAlt()
         self.backgroundColor = .white
-        self.commentMarginColor = ColorConstantsAlt.commentMarginColor
+        self.commentMarginColor = ColorConstantsAlt.bodyColor
         self.indentationIndicatorColor = ColorConstantsAlt.identationColor
-        self.rootCommentMarginColor = ColorConstantsAlt.rootCommentMarginColor
-        self.indentationColor = ColorConstantsAlt.rootCommentMarginColor
+        self.rootCommentMarginColor = ColorConstantsAlt.bodyColor
+        self.indentationColor = ColorConstantsAlt.bodyColor
         self.commentMargin = 0
     }
 
