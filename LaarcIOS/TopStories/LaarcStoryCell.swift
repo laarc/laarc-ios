@@ -21,6 +21,22 @@ class LaarcStoryCell: CommentCell {
     var storyDelegate: LaarcStoryDelegate?
     var storyIndex: Int!
 
+    open var rank: Int {
+        get {
+            return self.content.rank
+        } set (value) {
+            self.content.rank = value
+        }
+    }
+
+    open var score: Int {
+        get {
+            return self.content.score
+        } set (value) {
+           self.content.score = value
+        }
+    }
+
     var content: LaarcStoryCellView {
         get {
             return self.commentViewContent as! LaarcStoryCellView
@@ -35,7 +51,7 @@ class LaarcStoryCell: CommentCell {
         }
     }
 
-    open var commentContent: String? {
+    open var commentContent: NSAttributedString? {
         get {
             return self.content.body
         } set(value) {
@@ -98,6 +114,7 @@ class LaarcStoryCell: CommentCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.commentViewContent = LaarcStoryCellView()
+        (self.commentViewContent as! LaarcStoryCellView).rank = rank
         self.backgroundColor = .white
         self.commentMarginColor = ColorConstantsAlt.bodyColor
         self.indentationIndicatorColor = ColorConstantsAlt.identationColor
@@ -132,35 +149,38 @@ class LaarcStoryCell: CommentCell {
 }
 
 class LaarcStoryCellView: UIView {
-    open var body: String? {
+    open var body: NSAttributedString? {
         didSet {
-            var nextBody = body
-            
-            if let body = body {
-                let maxChars = min(body.count, maxTitleChars)
-                let index = body.index(body.startIndex, offsetBy: maxChars)
-                let substring = body[..<index]
-                let postfix = body.count <= maxTitleChars ? "" : "..."
-                nextBody = "\(substring)\(postfix)"
-            }
-            
-            self.bodyView.text = nextBody
+            self.bodyView.attributedText = body
 
-            if bodyView.text.isEmpty {
+            if bodyView.attributedText.length == 0 {
                 bodyViewHeightConstraint?.isActive = true
             }
         }
     }
     
+    open var rank: Int = 0
+
+    open var score: Int  = 0 {
+        didSet {
+            if (score > 0) {
+                 self.upvoteBtn.setTitle(String(score), for: .normal)
+            } else {
+                 self.upvoteBtn.setTitle("Upvote", for: .normal)
+            }
+        }
+    }
+
     open var title: String? {
         didSet {
-            self.titleView.text = title
+            let rankStr = String(rank)
+            self.titleView.text = "\(rankStr). \(title ?? "")"
         }
     }
     
     open var posterName: String? {
         didSet {
-            self.usernameView.setTitle(posterName, for: .normal)
+            self.usernameView.setTitle("by \(posterName ?? "?")", for: .normal)
         }
     }
     
@@ -182,11 +202,13 @@ class LaarcStoryCellView: UIView {
             
         }
     }
+
     open var upvoted: Bool = false {
         didSet {
             self.upvoteBtn.tintColor = upvoted ? #colorLiteral(red: 0.08024211973, green: 0.7872473598, blue: 0.2486046553, alpha: 1) : ColorConstantsAlt.metadataColor
         }
     }
+
     open var isFolded: Bool! = false {
         didSet {
             if isFolded {
@@ -227,24 +249,14 @@ class LaarcStoryCellView: UIView {
     private let VMargin: CGFloat = 8
     
     func setupLayout() {
-        self.addSubview(usernameView)
-        usernameView.translatesAutoresizingMaskIntoConstraints = false
-        usernameView.topAnchor.constraint(equalTo: self.topAnchor, constant: VMargin).isActive = true
-        usernameView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
-        
-        self.addSubview(createdView)
-        createdView.translatesAutoresizingMaskIntoConstraints = false
-        createdView.leadingAnchor.constraint(equalTo: usernameView.trailingAnchor, constant: 5).isActive = true
-        createdView.centerYAnchor.constraint(equalTo: usernameView.centerYAnchor).isActive = true
-        
         self.addSubview(nRepliesLabel)
         nRepliesLabel.translatesAutoresizingMaskIntoConstraints = false
-        nRepliesLabel.centerYAnchor.constraint(equalTo: usernameView.centerYAnchor).isActive = true
-        nRepliesLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
+        nRepliesLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: VMargin).isActive = true
+        nRepliesLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: HMargin * -2).isActive = true
         
         self.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.topAnchor.constraint(equalTo: usernameView.bottomAnchor).isActive = true
+        titleView.topAnchor.constraint(equalTo: nRepliesLabel.bottomAnchor).isActive = true
         titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
         titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         titleViewHeightConstraint = titleView.heightAnchor.constraint(equalToConstant: 0)
@@ -257,6 +269,18 @@ class LaarcStoryCellView: UIView {
         bodyView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         bodyViewHeightConstraint = bodyView.heightAnchor.constraint(equalToConstant: 0)
         
+        self.addSubview(usernameView)
+        usernameView.translatesAutoresizingMaskIntoConstraints = false
+        usernameView.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        usernameView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin * 2).isActive = true
+        usernameView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        usernameView.contentHorizontalAlignment = .left
+        
+        self.addSubview(createdView)
+        createdView.translatesAutoresizingMaskIntoConstraints = false
+        createdView.leadingAnchor.constraint(equalTo: usernameView.trailingAnchor, constant: 5).isActive = true
+        createdView.centerYAnchor.constraint(equalTo: usernameView.centerYAnchor).isActive = true
+ 
         setupControlBar()
         controlBarHeightConstraint = controlBarContainerView.heightAnchor.constraint(equalToConstant: 0)
     }
@@ -264,6 +288,8 @@ class LaarcStoryCellView: UIView {
     /// Add Upvote & Reply buttons (and helper labels) to the view
     private func setupControlBar() {
         controlBarContainerView.backgroundColor = .white
+
+
         controlBarContainerView.addSubview(replyBtn)
         replyBtn.translatesAutoresizingMaskIntoConstraints = false
         replyBtn.topAnchor.constraint(equalTo: controlBarContainerView.topAnchor).isActive = true
@@ -276,9 +302,8 @@ class LaarcStoryCellView: UIView {
         upvoteBtn.topAnchor.constraint(equalTo: controlBarContainerView.topAnchor).isActive = true
         upvoteBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         upvoteBtn.trailingAnchor.constraint(equalTo: replyBtn.leadingAnchor, constant: -15).isActive = true
-        upvoteBtn.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        upvoteBtn.leadingAnchor.constraint(equalTo: controlBarContainerView.leadingAnchor).isActive = true
-        
+        upvoteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+
         self.addSubview(controlBarContainerView)
         controlBarContainerView.translatesAutoresizingMaskIntoConstraints = false
         controlBarContainerView.topAnchor.constraint(equalTo: bodyView.bottomAnchor, constant: 5).isActive = true
@@ -337,7 +362,7 @@ class LaarcStoryCellView: UIView {
         title.textAlignment = .left
         title.backgroundColor = .clear
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+        title.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
         return title
     }()
 
@@ -347,7 +372,8 @@ class LaarcStoryCellView: UIView {
         lbl.isScrollEnabled = false
         lbl.textAlignment = .left
         lbl.backgroundColor = .clear
-        lbl.font = UIFont.italicSystemFont(ofSize: 12)
+        lbl.textColor = .black
+        lbl.font = UIFont.systemFont(ofSize: 13)
         return lbl
     }()
     
@@ -355,7 +381,7 @@ class LaarcStoryCellView: UIView {
         let btn = UIButton()
         btn.setTitleColor(.black, for: .normal)
         btn.setTitle("Anonymous", for: .normal)
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
+        btn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         return btn
     }()
 
@@ -363,7 +389,7 @@ class LaarcStoryCellView: UIView {
         let lbl = UILabel()
         lbl.text = "6 days ago"
         lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.thin)
+        lbl.font = UIFont.italicSystemFont(ofSize: 12)
         return lbl
     }()
 }

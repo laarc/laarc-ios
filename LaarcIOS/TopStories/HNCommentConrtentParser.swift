@@ -66,8 +66,10 @@ class HNCommentContentParser {
         while !scanner.isAtEnd {
             // scan text and accumulate it until we found a special entity (starting with &) or an open tag character (<)
             if let textString = try scanner.scan(upTo: CharacterSet(charactersIn: "<&")) {
-                let substring = textString.split(separator: ">")[0]
-                plainText += substring
+                let substring = textString.split(separator: ">")
+                if substring.count > 0 {
+                    plainText += substring[0]
+                }
             } else {
                 // We have encountered a special entity or an open/close tag
                 if scanner.match("&") == true {

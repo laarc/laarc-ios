@@ -51,6 +51,7 @@
 		A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */; };
 		A1D2D06321FD21E200152895 /* LaarcStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2D06221FD21E200152895 /* LaarcStoryCell.swift */; };
 		A1D2D06521FD518200152895 /* LaarcStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2D06421FD518200152895 /* LaarcStoriesViewController.swift */; };
+		A1EA7FCD2205327E009D3CFE /* LaarcTopStoriesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA7FCC2205327E009D3CFE /* LaarcTopStoriesVM.swift */; };
 		A1EC5C0F21FC41E200E2873B /* LaarcCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C0E21FC41E100E2873B /* LaarcCommentCell.swift */; };
 		A1EC5C1121FC425900E2873B /* LaarcData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1021FC425900E2873B /* LaarcData.swift */; };
 		A1EC5C1521FCF89D00E2873B /* LaarcDiscussion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */; };
@@ -158,6 +159,7 @@
 		A1C60D1F21F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOTopStoryDetailViewController.swift; sourceTree = "<group>"; };
 		A1D2D06221FD21E200152895 /* LaarcStoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcStoryCell.swift; sourceTree = "<group>"; };
 		A1D2D06421FD518200152895 /* LaarcStoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcStoriesViewController.swift; sourceTree = "<group>"; };
+		A1EA7FCC2205327E009D3CFE /* LaarcTopStoriesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcTopStoriesVM.swift; sourceTree = "<group>"; };
 		A1EC5C0E21FC41E100E2873B /* LaarcCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaarcCommentCell.swift; sourceTree = "<group>"; };
 		A1EC5C1021FC425900E2873B /* LaarcData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcData.swift; sourceTree = "<group>"; };
 		A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcDiscussion.swift; sourceTree = "<group>"; };
@@ -355,7 +357,6 @@
 				A18DB4DA21F80B3E00A06B2A /* CommentTableViewCell.swift */,
 				A18DB4DC21F80C2500A06B2A /* CommentsViewController.swift */,
 				A18DB4DE21F80EB700A06B2A /* DetailViewController.swift */,
-				A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */,
 				A1EC5C0E21FC41E100E2873B /* LaarcCommentCell.swift */,
 				A1EC5C1821FCFA3C00E2873B /* LaarcCommentCellAlt.swift */,
 				A1A3305221FACFB300929D3A /* LaarcCommentsViewController.swift */,
@@ -369,7 +370,9 @@
 		A1C60D1A21F17CD40017EDE0 /* Story */ = {
 			isa = PBXGroup;
 			children = (
+				A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */,
 				A1C60D1821F17CB20017EDE0 /* LIOItem.swift */,
+				A1EA7FCC2205327E009D3CFE /* LaarcTopStoriesVM.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -627,13 +630,9 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
 			name = "Increment Build";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,13 +644,9 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
 			name = "Increment Build";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -726,6 +721,7 @@
 				A16A1C4121F28E350011F0FA /* LIOUtils.swift in Sources */,
 				A1B8504821F2E08500962B1B /* LIOCommentTableViewCell.swift in Sources */,
 				A1D2D06521FD518200152895 /* LaarcStoriesViewController.swift in Sources */,
+				A1EA7FCD2205327E009D3CFE /* LaarcTopStoriesVM.swift in Sources */,
 				A1A3305321FACFB300929D3A /* LaarcCommentsViewController.swift in Sources */,
 				A18DB4DD21F80C2500A06B2A /* CommentsViewController.swift in Sources */,
 				A1B8505221F2E16100962B1B /* LIODownvoteButton.swift in Sources */,

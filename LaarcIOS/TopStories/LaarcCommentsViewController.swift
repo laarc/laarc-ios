@@ -70,7 +70,7 @@ class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewD
 class LaarcCommentsViewController: CommentsViewController {
     private let commentCellId = "hnComentCellId"
     var allComments = [AttributedTextComment]()
-    
+
     var story: LaarcStory!
 
     override func viewDidLoad() {
