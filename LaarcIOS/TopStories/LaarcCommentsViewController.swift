@@ -88,6 +88,7 @@ class LaarcCommentsViewController: CommentsViewController {
                 self.allComments.append(contentsOf: laarcComments)
                 self.generateAttributedTexts(for: self.allComments)
                 DispatchQueue.main.async {
+                    self.loadReplies(forComments: self.allComments)
                     self.currentlyDisplayed = self.allComments
                     self.tableView.reloadData()
                 }
@@ -112,6 +113,45 @@ class LaarcCommentsViewController: CommentsViewController {
         commentCell.nReplies = comment.kids?.count ?? 0
         commentCell.isFolded = comment.isFolded && !isCellExpanded(indexPath: indexPath)
         return commentCell
+    }
+    
+    func loadComment(_ parent: inout AttributedTextComment, forId id: Int, isCollapsed: Bool = true) {
+        let baseReply = AttributedTextComment()
+        parent.addReply(baseReply)
+        baseReply.replyTo = parent
+        baseReply.level = parent.level + 1
+        baseReply.id = id
+        baseReply.isFolded = isCollapsed
+
+        LIOApi.shared.getItem(id: id) { data in
+            if let data = data as? [String: Any] {
+                let reply = AttributedTextComment(commentData: data)
+                if let text = reply.text {
+                    baseReply.attributedContent = HNCommentContentParser.buildAttributedText(From: text)
+                }
+                baseReply.by = reply.by
+                baseReply.time = reply.time
+                baseReply.url = reply.url
+                baseReply.text = reply.text
+                baseReply.score = reply.score
+                baseReply.title = reply.title
+                baseReply.deleted = reply.deleted
+                baseReply.dead = reply.dead
+                baseReply.kids = reply.kids
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadReplies(forComments comments: [AttributedTextComment]) {
+        for i in 0..<comments.count {
+            var comment = comments[i]
+            if let kids = comment.kids, kids.count > 0 {
+                kids.forEach({ id in
+                    self.loadComment(&comment, forId: id)
+                })
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
