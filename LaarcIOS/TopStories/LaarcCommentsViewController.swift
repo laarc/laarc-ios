@@ -52,11 +52,11 @@ class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewD
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndex = indexPath.row
-        let selectedCom: AbstractComment = currentlyDisplayed[selectedIndex]
+        let selectedCom = currentlyDisplayed[selectedIndex] as! AttributedTextComment
 
         // Enable cell folding for comments without replies
         if selectedCom.replies.count == 0 {
-            if (selectedCom as! LaarcComment).isFolded {
+            if selectedCom.isFolded {
                 commentCellExpanded(atIndex: selectedIndex)
             } else {
                 commentCellFolded(atIndex: selectedIndex)
@@ -82,15 +82,20 @@ class LaarcCommentsViewController: CommentsViewController {
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
 
+        refreshEverything()
+    }
+
+    func refreshEverything() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadLaarcCommentData() { laarcComments in
                 self.allComments.removeAll()
                 self.allComments.append(contentsOf: laarcComments)
                 self.generateAttributedTexts(for: self.allComments)
                 DispatchQueue.main.async {
-                    self.loadReplies(forComments: self.allComments)
-                    self.currentlyDisplayed = self.allComments
-                    self.tableView.reloadData()
+                    self.loadReplies(forComments: self.allComments) {
+                        self.currentlyDisplayed = self.allComments
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -115,13 +120,13 @@ class LaarcCommentsViewController: CommentsViewController {
         return commentCell
     }
     
-    func loadComment(_ parent: inout AttributedTextComment, forId id: Int, isCollapsed: Bool = true) {
-        let baseReply = AttributedTextComment()
+    func loadComment(_ parent: inout AttributedTextComment, forId id: Int, completion: @escaping () -> Void) {
+        var baseReply = AttributedTextComment()
         parent.addReply(baseReply)
         baseReply.replyTo = parent
         baseReply.level = parent.level + 1
         baseReply.id = id
-        baseReply.isFolded = isCollapsed
+        baseReply.isFolded = false
 
         LIOApi.shared.getItem(id: id) { data in
             if let data = data as? [String: Any] {
@@ -137,19 +142,47 @@ class LaarcCommentsViewController: CommentsViewController {
                 baseReply.title = reply.title
                 baseReply.deleted = reply.deleted
                 baseReply.dead = reply.dead
-                baseReply.kids = reply.kids
+                baseReply.kids = reply.kids ?? []
+                if baseReply.kids!.count == 0 {
+                    completion()
+                } else {
+                    var childrenLoaded = 0
+                    baseReply.kids!.forEach({ childId in
+                        self.loadComment(&baseReply, forId: childId) {
+                            childrenLoaded += 1
+                            if childrenLoaded == baseReply.kids!.count {
+                                completion()
+                            }
+                        }
+                    })
+                }
+            } else {
+                completion()
             }
-            self.tableView.reloadData()
         }
     }
-    
-    func loadReplies(forComments comments: [AttributedTextComment]) {
+
+    func loadReplies(forComments comments: [AttributedTextComment], completion: @escaping () -> Void) {
+        guard comments.count > 0 else { return }
+
+        var finishedWith = 0
+
         for i in 0..<comments.count {
             var comment = comments[i]
             if let kids = comment.kids, kids.count > 0 {
                 kids.forEach({ id in
-                    self.loadComment(&comment, forId: id)
+                    self.loadComment(&comment, forId: id) {
+                        finishedWith += 1
+                        if finishedWith == comments.count {
+                            completion()
+                        }
+                    }
                 })
+            } else {
+                finishedWith += 1
+                if finishedWith == comments.count {
+                    completion()
+                }
             }
         }
     }
@@ -173,7 +206,7 @@ class LaarcCommentsViewController: CommentsViewController {
 
             if let data = data as? [String: Any] {
                 let storyItem = LIOItem(item: data)
-                if let kids = storyItem.kids {
+                if let kids = storyItem.kids, kids.count > 0 {
                     for i in 0..<kids.count {
                         LIOApi.shared.getItem(id: kids[i]) { commentData in
                             if let commentData = commentData as? [String: Any] {
