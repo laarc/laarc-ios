@@ -127,8 +127,15 @@ class LaarcStoriesViewController: CommentsViewController {
     func showDetailView(forStoryAt index: Int) {
         guard currentlyDisplayed.count > index else { return }
 
-        let commentsVC = FoldableCommentsViewController()
-        commentsVC.story = currentlyDisplayed[index] as! LaarcStory
-        navigationController?.pushViewController(commentsVC, animated: true)
+        if let focusingItem = currentlyDisplayed[index] as? LaarcStory {
+            LIOApi.shared.getItem(id: focusingItem.id) { item in
+                if let item = item as? [String: Any] {
+                    let story = LaarcStory(commentData: item)
+                    let commentsVC = FoldableCommentsViewController()
+                    commentsVC.story = story
+                    self.navigationController?.pushViewController(commentsVC, animated: true)
+                }
+            }
+        }
     }
 }

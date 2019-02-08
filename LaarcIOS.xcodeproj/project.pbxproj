@@ -637,7 +637,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${EXTENSION_PLIST}\"\n";
 		};
 		A168454821FD9A79001A252A /* Increment Build */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -939,6 +939,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaarcIOS/LaarcIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9452FEMTF;
+				EXTENSION_PLIST = "${SRCROOT}/LaarcIOSShareExtension/Info.plist";
 				INFOPLIST_FILE = LaarcIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -961,6 +962,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaarcIOS/LaarcIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9452FEMTF;
+				EXTENSION_PLIST = "${SRCROOT}/LaarcIOSShareExtension/Info.plist";
 				INFOPLIST_FILE = LaarcIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
