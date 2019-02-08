@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LaarcIOS/TopStories/LaarcStoryCell.swift"
-            timestampString = "571308659.584785"
+            timestampString = "571311432.745279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LaarcIOS/Story/LaarcTopStoriesVM.swift"
-            timestampString = "571308659.58515"
+            timestampString = "571311432.745646"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "appendStoryCheckIndex(story:index:completion:)"
             landmarkType = "7">
          </BreakpointContent>

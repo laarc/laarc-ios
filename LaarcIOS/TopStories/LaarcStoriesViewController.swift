@@ -74,16 +74,23 @@ extension FoldableStoriesViewController: LaarcStoryDelegate {
 class LaarcStoriesViewController: CommentsViewController {
 
     private let storyCellId = "laarcStoryCellId"
+    private let loadingCellId = "loadingCell"
 
     let viewModel = LaarcTopStoriesVM()
     
     var loadTimer: Timer?
+    
+    var indicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addLoader()
+
         tableView.register(LaarcStoryCell.self, forCellReuseIdentifier: storyCellId)
-        
+
         tableView.backgroundColor = ColorConstants.backgroundColorMed
+        view.backgroundColor = ColorConstantsAlt.bodyColor
+
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
 
@@ -91,30 +98,73 @@ class LaarcStoriesViewController: CommentsViewController {
     }
 
     func viewModelLoad() {
-        viewModel.getTopStoriesData() { topStories in
-            self.currentlyDisplayed = topStories
-            self.tableView.reloadData()
+        showLoader()
+        
+        tableView.reloadData {
+            self.viewModel.getTopStoriesData() { topStories in
+                self.currentlyDisplayed = topStories
+                self.hideLoader()
+                self.tableView.reloadData()
+            }
         }
+    }
+
+    func addLoader() {
+        let indicatorSize: CGFloat = 60
+        let offset: CGFloat = indicatorSize * 0.5
+        indicator = UIActivityIndicatorView(frame: CGRect(x: (view.frame.size.width * 0.5) - offset, y: (view.frame.size.height * 0.3) - offset, width: indicatorSize, height: indicatorSize))
+        indicator.color = .black
+        view.addSubview(indicator)
+    }
+
+    func showLoader() {
+        view.bringSubviewToFront(indicator)
+        indicator.startAnimating()
+    }
+
+    func hideLoader() {
+        view.sendSubviewToBack(indicator)
+        indicator.stopAnimating()
     }
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let viewSize: CGFloat = 80
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(tableView.frame.width), height: Int(viewSize)))
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: Int(tableView.frame.width), height: Int(viewSize)))
         let prevBtn = UIButton(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
         let nextBtn = UIButton(frame: CGRect(x: tableView.frame.size.width - viewSize, y: 0, width: viewSize, height: viewSize))
-        view.addSubview(prevBtn)
-        view.addSubview(nextBtn)
+        footer.backgroundColor = .white
+        footer.addSubview(prevBtn)
+        footer.addSubview(nextBtn)
         prevBtn.setTitle("prev", for: .normal)
         prevBtn.titleLabel!.font = LaarcUIUtils.primaryFont()
+        prevBtn.setTitleColor(.black, for: .normal)
+        prevBtn.setTitleColor(ColorConstantsAlt.metadataColor.withAlphaComponent(0.6), for: .disabled)
         prevBtn.contentVerticalAlignment = .top
         prevBtn.contentEdgeInsets.top = 4
+        prevBtn.showsTouchWhenHighlighted = true
         prevBtn.addTarget(self, action: #selector(handlePrev), for: .touchUpInside)
         nextBtn.setTitle("next", for: .normal)
         nextBtn.titleLabel!.font = LaarcUIUtils.primaryFont()
         nextBtn.contentVerticalAlignment = .top
         nextBtn.contentEdgeInsets.top = 4
         nextBtn.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
-        return view
+        nextBtn.setTitleColor(.black, for: .normal)
+        nextBtn.setTitleColor(ColorConstantsAlt.metadataColor.withAlphaComponent(0.6), for: .disabled)
+        nextBtn.showsTouchWhenHighlighted = true
+
+        if viewModel.currentPage == 1 {
+            prevBtn.isEnabled = false
+        } else if viewModel.currentPage == viewModel.maxPages {
+            nextBtn.isEnabled = false
+        }
+
+        if indicator.isAnimating {
+            footer.alpha = 0
+        } else {
+            footer.alpha = 1
+        }
+
+        return footer
     }
 
     override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
@@ -148,19 +198,26 @@ class LaarcStoriesViewController: CommentsViewController {
     func clearTableThenLoad(inDirection: PaginateDir) {
         currentlyDisplayed = []
         tableView.reloadData() {
-            self.viewModel.paginate(inDirection: inDirection)
             self.viewModelLoad()
         }
     }
 
     @objc func handleNext() {
-        tableView.scrollToTop(animated: false)
-        clearTableThenLoad(inDirection: .next)
+        let lastPage = viewModel.currentPage
+        viewModel.paginate(inDirection: .next)
+        if lastPage != viewModel.currentPage {
+            tableView.scrollToTop(animated: false)
+            clearTableThenLoad(inDirection: .next)
+        }
     }
     
     @objc func handlePrev() {
-        tableView.scrollToTop(animated: false)
-        clearTableThenLoad(inDirection: .prev)
+        let lastPage = viewModel.currentPage
+        viewModel.paginate(inDirection: .prev)
+        if lastPage != viewModel.currentPage {
+            tableView.scrollToTop(animated: false)
+            clearTableThenLoad(inDirection: .prev)
+        }
     }
 
     func showDetailView(forStoryAt index: Int) {

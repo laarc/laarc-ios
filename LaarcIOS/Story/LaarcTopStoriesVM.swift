@@ -25,9 +25,8 @@ class LaarcTopStoriesVM {
 
     func paginate(inDirection dir: PaginateDir = .next) {
         var nextPage = currentPage + dir.rawValue
-        let maxPageNumber = Int(ceil(Double(topStoryIds.count % itemsPerPage)))
         if dir == .prev { nextPage = max(nextPage, 1) }
-        else { nextPage = min(nextPage, maxPageNumber) }
+        else { nextPage = min(nextPage, maxPages) }
         currentPage = nextPage
     }
 
@@ -85,7 +84,14 @@ class LaarcTopStoriesVM {
             }
         }
     }
-    
+
+    var maxPages: Int {
+        get {
+            let showableStories = topStoryIds.count - noopStoryIds.count
+            return Int(ceil(Double(showableStories % itemsPerPage)))
+        }
+    }
+
     func appendStoryCheckIndex(
         story: LaarcStory,
         index: Int,
