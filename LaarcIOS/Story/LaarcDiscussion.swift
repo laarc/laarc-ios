@@ -67,7 +67,15 @@ class LaarcDiscussion {
 
 // model of a comment with attributed text content
 class AttributedTextComment: LaarcComment {
-    var attributedContent: NSAttributedString?
+    var attributedContent: NSAttributedString? {
+        didSet {
+            let attrs: [NSAttributedString.Key: Any] = [
+                .font: LaarcUIUtils.primaryFont(15)
+            ]
+            let applyStr = NSMutableAttributedString(attributedString: attributedContent ?? NSAttributedString())
+            applyStr.addAttributes(attrs, range: NSRange(location: 0, length: applyStr.length))
+        }
+    }
 }
 
 

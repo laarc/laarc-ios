@@ -136,15 +136,22 @@ class LaarcStoryCell: CommentCell {
         storyDelegate?.expanderElementWasTapped(index: storyIndex)
     }
 
+    @objc func voteButtonTapped(_ sender: Any?) {
+        storyDelegate?.expanderElementWasTapped(index: storyIndex)
+    }
+
     @objc func cellContentTapped(_ sender: Any?) {
         storyDelegate?.contentCellTapped(index: storyIndex)
     }
     
     func setupGestures() {
         content.replyBtn.addTarget(self, action: #selector(replyButtonTapped(_:)), for: .touchUpInside)
+        content.upvoteBtn.addTarget(self, action: #selector(voteButtonTapped(_:)), for: .touchUpInside)
         let tap = UITapGestureRecognizer(target: self, action: #selector(cellContentTapped(_:)))
-        content.bodyView.addGestureRecognizer(tap)
+        let bodyTap = UITapGestureRecognizer(target: self, action: #selector(cellContentTapped(_:)))
+        content.bodyView.addGestureRecognizer(bodyTap)
         content.titleView.addGestureRecognizer(tap)
+        content.controlBarContainerView.isUserInteractionEnabled = true
     }
 }
 
@@ -153,12 +160,14 @@ class LaarcStoryCellView: UIView {
         didSet {
             if let body = body {
                 let attrs: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: ColorConstantsAlt.metadataColor
+                    .foregroundColor: ColorConstantsAlt.metadataColor,
+                    .font: LaarcUIUtils.primaryFont(12)
                 ]
-                
+    
                 let attrText = NSMutableAttributedString(attributedString: body)
                 let len = attrText.length
                 attrText.addAttributes(attrs, range: NSRange(location: 0, length: len))
+                self.bodyView.setLineMax(3)
                 self.bodyView.attributedText = NSAttributedString(attributedString: attrText)
             }
 
@@ -172,24 +181,20 @@ class LaarcStoryCellView: UIView {
 
     open var score: Int  = 0 {
         didSet {
-            if (score > 0) {
-                 self.upvoteBtn.setTitle(String(score), for: .normal)
-            } else {
-                 self.upvoteBtn.setTitle("Upvote", for: .normal)
-            }
+            self.upvoteBtn.setTitle(String(score), for: .normal)
         }
     }
 
     open var title: String? {
         didSet {
             let rankStr = String(rank)
-            let prefix = rankStr.appending(". ")
-            let fullStr = "\(rankStr). \(title ?? "")"
+            let prefix = rankStr.appending("  ")
+            let fullStr = "\(prefix)\(title ?? "")"
             let prefixLen = prefix.count
             let fullAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+                .font: LaarcUIUtils.primaryFont(ofWeight: .medium)
             ]
-            let rankAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: ColorConstantsAlt.metadataColor]
+            let rankAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: ColorConstantsAlt.metadataColor, .font: LaarcUIUtils.primaryFont(ofWeight: .regular)]
             let attrText = NSMutableAttributedString(string: fullStr)
             attrText.addAttributes(rankAttributes, range: NSRange(location: 0, length: prefixLen))
             attrText.addAttributes(fullAttributes, range: NSRange(location: 0, length: fullStr.count))
@@ -199,7 +204,7 @@ class LaarcStoryCellView: UIView {
     
     open var posterName: String? {
         didSet {
-            self.usernameView.setTitle("by \(posterName ?? "?")", for: .normal)
+            self.usernameView.setTitle("\(posterName ?? "?") →", for: .normal)
         }
     }
     
@@ -211,14 +216,8 @@ class LaarcStoryCellView: UIView {
     
     open var nReplies: Int! {
         didSet {
-            let repliesText = nReplies == 1 ? "reply" : "replies"
-
-            if nReplies > 0 {
-                self.nRepliesLabel.text = "\(nReplies!) \(repliesText)"
-            } else {
-                self.nRepliesLabel.text = ""
-            }
-            
+            let repliesText = nReplies > 0 ? String(nReplies) : ""
+            replyBtn.setTitle(repliesText, for: .normal)
         }
     }
 
@@ -268,14 +267,9 @@ class LaarcStoryCellView: UIView {
     private let VMargin: CGFloat = 8
     
     func setupLayout() {
-        self.addSubview(nRepliesLabel)
-        nRepliesLabel.translatesAutoresizingMaskIntoConstraints = false
-        nRepliesLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: VMargin).isActive = true
-        nRepliesLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: HMargin * -2).isActive = true
-        
         self.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.topAnchor.constraint(equalTo: nRepliesLabel.bottomAnchor).isActive = true
+        titleView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
         titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         titleViewHeightConstraint = titleView.heightAnchor.constraint(equalToConstant: 0)
@@ -288,6 +282,7 @@ class LaarcStoryCellView: UIView {
         bodyView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         bodyViewHeightConstraint = bodyView.heightAnchor.constraint(equalToConstant: 0)
         
+
         self.addSubview(usernameView)
         usernameView.translatesAutoresizingMaskIntoConstraints = false
         usernameView.heightAnchor.constraint(equalToConstant: 32).isActive = true
@@ -322,53 +317,49 @@ class LaarcStoryCellView: UIView {
         upvoteBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         upvoteBtn.trailingAnchor.constraint(equalTo: replyBtn.leadingAnchor, constant: -15).isActive = true
         upvoteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
-
         self.addSubview(controlBarContainerView)
         controlBarContainerView.translatesAutoresizingMaskIntoConstraints = false
         controlBarContainerView.topAnchor.constraint(equalTo: bodyView.bottomAnchor, constant: 5).isActive = true
         controlBarContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
         controlBarContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -VMargin).isActive = true
     }
-    
+
+    @objc func handleUpvote(_ sender: Any) {
+        print("upvote!!")
+    }
+
     let controlBarContainerView = UIView()
-    
-    let nRepliesLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "0 reply"
-        lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.thin)
-        return lbl
-    }()
 
     let upvoteBtn: UIButton = {
         let btn = UIButton()
         let img = #imageLiteral(resourceName: "hadUpvote").withRenderingMode(.alwaysTemplate)
         btn.setImage(img, for: .normal)
-        btn.setTitle("Upvote", for: .normal)
+        btn.setTitle("Vote", for: .normal)
         
-        
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(12)
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
         
+        btn.alpha = 0.8
         btn.tintColor = ColorConstantsAlt.metadataColor
-        
+        btn.contentHorizontalAlignment = .right
+
         return btn
     }()
 
     let replyBtn: UIButton = {
         let btn = UIButton()
-        let img = #imageLiteral(resourceName: "hnRespond").withRenderingMode(.alwaysTemplate)
+        let img = #imageLiteral(resourceName: "message").withRenderingMode(.alwaysTemplate)
+
         btn.setImage(img, for: .normal)
-        btn.setTitle("Reply", for: .normal)
-        
-        
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
+        btn.setTitle("0", for: .normal)
+
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(12)
+        btn.setTitleColor(ColorConstantsAlt.metadataColor.withAlphaComponent(0.8), for: .normal)
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-        
+
         btn.tintColor = ColorConstantsAlt.metadataColor
         
         return btn
@@ -381,7 +372,7 @@ class LaarcStoryCellView: UIView {
         title.textAlignment = .left
         title.backgroundColor = .clear
         title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+        title.font = LaarcUIUtils.primaryFont(15, ofWeight: .medium)
         return title
     }()
 
@@ -392,7 +383,9 @@ class LaarcStoryCellView: UIView {
         lbl.textAlignment = .left
         lbl.backgroundColor = .clear
         lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.systemFont(ofSize: 13)
+        lbl.font = LaarcUIUtils.primaryFont(11)
+        lbl.addPaddingLeft(2)
+        lbl.setLineMax(3)
         return lbl
     }()
     
@@ -400,7 +393,7 @@ class LaarcStoryCellView: UIView {
         let btn = UIButton()
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.setTitle("Anonymous", for: .normal)
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(12)
         return btn
     }()
 
@@ -408,7 +401,8 @@ class LaarcStoryCellView: UIView {
         let lbl = UILabel()
         lbl.text = "6 days ago"
         lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.italicSystemFont(ofSize: 12)
+        lbl.font = LaarcUIUtils.primaryFont(12).italic
+        lbl.alpha = 0.8
         return lbl
     }()
 }

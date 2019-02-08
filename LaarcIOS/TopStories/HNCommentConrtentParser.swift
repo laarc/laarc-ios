@@ -18,15 +18,14 @@ class HNCommentContentParser {
     
     /// Turns the html of a comment from Hackernews to an AttributedString
     /// valid html = https://news.ycombinator.com/formatdoc
-    public static func buildAttributedText(From markup: String, textColor: UIColor = .black, fontSize: CGFloat = 14, linkColor: UIColor = .orange) -> NSAttributedString? {
+    public static func buildAttributedText(From markup: String, textColor: UIColor = .black, fontSize: CGFloat = 14, linkColor: UIColor = .orange, withFont: UIFont = LaarcUIUtils.primaryFont(ofWeight: .regular)) -> NSAttributedString? {
         guard let (text, tags) = try? parse(markup) else {
             return nil
         }
         
-        
-        
         let attributedText = NSMutableAttributedString(string: text)
-        let font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+//        let font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+        let font = withFont.withSize(fontSize)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.paragraphSpacing = 0.4*font.lineHeight
         paragraphStyle.lineSpacing = 0.1*font.lineHeight

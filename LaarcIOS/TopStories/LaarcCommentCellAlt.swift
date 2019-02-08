@@ -236,35 +236,36 @@ class LaarcCommentViewAlt: UIView {
     
     let nRepliesLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "0 reply"
+        lbl.text = ""
         lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.thin)
+        lbl.font = LaarcUIUtils.primaryFont(13, ofWeight: .thin)
         return lbl
     }()
+
     let upvoteBtn: UIButton = {
         let btn = UIButton()
         let img = #imageLiteral(resourceName: "hadUpvote").withRenderingMode(.alwaysTemplate)
         btn.setImage(img, for: .normal)
-        btn.setTitle("Upvote", for: .normal)
+        btn.setTitle("", for: .normal)
         
-        
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(12, ofWeight: .thin)
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        btn.contentHorizontalAlignment = .right
         
         btn.tintColor = ColorConstantsAlt.metadataColor
         
         return btn
     }()
+
     let replyBtn: UIButton = {
         let btn = UIButton()
         let img = #imageLiteral(resourceName: "hnRespond").withRenderingMode(.alwaysTemplate)
         btn.setImage(img, for: .normal)
-        btn.setTitle("Reply", for: .normal)
+        btn.setTitle("reply", for: .normal)
         
-        
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(12, ofWeight: .thin)
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
@@ -280,7 +281,7 @@ class LaarcCommentViewAlt: UIView {
         lbl.isScrollEnabled = false
         lbl.textAlignment = .left
         lbl.backgroundColor = .clear
-        lbl.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+//        lbl.font = LaarcUIUtils.primaryFont(14, ofWeight: .medium)
         return lbl
     }()
     
@@ -289,14 +290,15 @@ class LaarcCommentViewAlt: UIView {
         btn.setTitleColor(.black, for: .normal)
         btn.setTitle("Anonymous", for: .normal)
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
+        btn.titleLabel!.font = LaarcUIUtils.primaryFont(17, ofWeight: .semibold)
         return btn
     }()
+
     let createdView: UILabel = {
         let lbl = UILabel()
         lbl.text = "6 days ago"
         lbl.textColor = ColorConstantsAlt.metadataColor
-        lbl.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.thin)
+        lbl.font = LaarcUIUtils.primaryFont(13, ofWeight: .thin)
         return lbl
     }()
     

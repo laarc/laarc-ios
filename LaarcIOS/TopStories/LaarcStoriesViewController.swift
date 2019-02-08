@@ -100,11 +100,11 @@ class LaarcStoriesViewController: CommentsViewController {
         storyCell.level = story.level
         storyCell.itemTitle = story.title
         if let text = story.text {
-            let maxChars = min(text.count, 108)
-            let index = text.index(text.startIndex, offsetBy: maxChars)
-            let truncated = text[..<index]
-            let postfix = maxChars > 0 ? "..." : ""
-            let attrText = HNCommentContentParser.buildAttributedText(From: "\(truncated)\(postfix)")
+//            let maxChars = min(text.count, 108)
+//            let index = text.index(text.startIndex, offsetBy: maxChars)
+//            let truncated = text[..<index]
+//            let postfix = maxChars > 0 ? "..." : ""
+            let attrText = HNCommentContentParser.buildAttributedText(From: text)
             storyCell.commentContent = attrText
         }
         storyCell.posterName = story.by
