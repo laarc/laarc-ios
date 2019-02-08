@@ -82,7 +82,20 @@ class LaarcCommentsViewController: CommentsViewController {
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
 
+        let img = #imageLiteral(resourceName: "open_dark").withRenderingMode(.alwaysTemplate)
+        let buttonItem = UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(openLink(_:)))
+        buttonItem.imageInsets.left = 5
+        navigationItem.rightBarButtonItem = buttonItem
+
         refreshEverything()
+    }
+
+    @objc func openLink(_ sender: Any?) {
+        if let storyUrl = story.url {
+            let histItem = HistoryItem.fromLaarcStory(story)
+            LaarcCache.shared.pushToHistory(histItem)
+            UIApplication.shared.open(storyUrl, options: [:], completionHandler: nil)
+        }
     }
 
     func refreshEverything() {

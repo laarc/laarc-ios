@@ -23,6 +23,7 @@
 		A1A14376220D4CD60068A95B /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14375220D4CD60068A95B /* UITextField+Extension.swift */; };
 		A1A14378220D50D40068A95B /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14377220D50D40068A95B /* NSAttributedString+Extension.swift */; };
 		A1A1437A220D75330068A95B /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14379220D75330068A95B /* UITableView+Extension.swift */; };
+		A1A1437C220D8B5E0068A95B /* LaarcCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1437B220D8B5E0068A95B /* LaarcCache.swift */; };
 		A1A3305321FACFB300929D3A /* LaarcCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3305221FACFB300929D3A /* LaarcCommentsViewController.swift */; };
 		A1A3305621FAD3F600929D3A /* RootTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3305521FAD3F600929D3A /* RootTabViewController.swift */; };
 		A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */; };
@@ -131,6 +132,7 @@
 		A1A14375220D4CD60068A95B /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		A1A14377220D50D40068A95B /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		A1A14379220D75330068A95B /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		A1A1437B220D8B5E0068A95B /* LaarcCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcCache.swift; sourceTree = "<group>"; };
 		A1A3305221FACFB300929D3A /* LaarcCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcCommentsViewController.swift; sourceTree = "<group>"; };
 		A1A3305521FAD3F600929D3A /* RootTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabViewController.swift; sourceTree = "<group>"; };
 		A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOAddCommentViewController.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				A1C60D1421F176110017EDE0 /* LIOApi.swift */,
 				A16A1C4021F28E350011F0FA /* LIOUtils.swift */,
 				A1EC5C1021FC425900E2873B /* LaarcData.swift */,
+				A1A1437B220D8B5E0068A95B /* LaarcCache.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftScanner/SwiftScanner.framework",
@@ -699,6 +703,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftScanner.framework",
@@ -765,6 +770,7 @@
 				A1A14370220D49A30068A95B /* UIFont+Extension.swift in Sources */,
 				A1EC5C1121FC425900E2873B /* LaarcData.swift in Sources */,
 				A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */,
+				A1A1437C220D8B5E0068A95B /* LaarcCache.swift in Sources */,
 				A1EC5C1B21FCFB3F00E2873B /* HNCommentConrtentParser.swift in Sources */,
 				A1EC5C1521FCF89D00E2873B /* LaarcDiscussion.swift in Sources */,
 				A1C60CC621F16ED20017EDE0 /* AppDelegate.swift in Sources */,

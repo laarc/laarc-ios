@@ -39,6 +39,7 @@ class FoldableStoriesViewController: LaarcStoriesViewController, CommentsViewDel
     
     override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
         let storyCell = super.commentsView(tableView, commentCellForModel: commentModel, atIndexPath: indexPath) as! LaarcStoryCell
+        storyCell.story = (currentlyDisplayed[indexPath.row] as! LaarcStory)
         storyCell.storyDelegate = self
         storyCell.storyIndex = indexPath.row
         return storyCell
@@ -93,8 +94,18 @@ class LaarcStoriesViewController: CommentsViewController {
 
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
+        
+        let img = #imageLiteral(resourceName: "target").withRenderingMode(.alwaysTemplate)
+        let inputItem = UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(handleEnterInput(_:)))
+        navigationItem.leftBarButtonItem = inputItem
 
         viewModelLoad()
+    }
+
+    @objc func handleEnterInput(_ sender: Any?) {
+        let ac = UIAlertController.init(title: "Enter Id", message: "Not yet but soon", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Neat", style: .default, handler: nil))
+        present(ac, animated: true, completion: nil)
     }
 
     func viewModelLoad() {

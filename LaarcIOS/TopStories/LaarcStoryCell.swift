@@ -20,6 +20,7 @@ fileprivate let maxTitleChars = 160
 class LaarcStoryCell: CommentCell {
     var storyDelegate: LaarcStoryDelegate?
     var storyIndex: Int!
+    var story: LaarcStory!
 
     open var rank: Int {
         get {
@@ -99,6 +100,8 @@ class LaarcStoryCell: CommentCell {
         }
     }
     
+    open var storyUrl: URL?
+    
     // change the value of the isFolded property, add a color animation.
     func animateIsFolded(fold: Bool) {
         UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: [], animations: {
@@ -143,10 +146,19 @@ class LaarcStoryCell: CommentCell {
     @objc func cellContentTapped(_ sender: Any?) {
         storyDelegate?.contentCellTapped(index: storyIndex)
     }
-    
+
+    @objc func openLink(_ sender: Any?) {
+        if let storyUrl = story.url {
+            let histItem = HistoryItem.fromLaarcStory(story)
+            LaarcCache.shared.pushToHistory(histItem)
+            UIApplication.shared.open(storyUrl, options: [:], completionHandler: nil)
+        }
+    }
+
     func setupGestures() {
         content.replyBtn.addTarget(self, action: #selector(replyButtonTapped(_:)), for: .touchUpInside)
         content.upvoteBtn.addTarget(self, action: #selector(voteButtonTapped(_:)), for: .touchUpInside)
+        content.openBtn.addTarget(self, action: #selector(openLink(_:)), for: .touchUpInside)
         let tap = UITapGestureRecognizer(target: self, action: #selector(cellContentTapped(_:)))
         let bodyTap = UITapGestureRecognizer(target: self, action: #selector(cellContentTapped(_:)))
         content.bodyView.addGestureRecognizer(bodyTap)
@@ -192,7 +204,7 @@ class LaarcStoryCellView: UIView {
             let fullStr = "\(prefix)\(title ?? "")"
             let prefixLen = prefix.count
             let fullAttributes: [NSAttributedString.Key: Any] = [
-                .font: LaarcUIUtils.primaryFont(ofWeight: .medium)
+                .font: LaarcUIUtils.primaryFont(ofWeight: .semibold)
             ]
             let rankAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: ColorConstantsAlt.metadataColor, .font: LaarcUIUtils.primaryFont(ofWeight: .regular)]
             let attrText = NSMutableAttributedString(string: fullStr)
@@ -269,8 +281,8 @@ class LaarcStoryCellView: UIView {
     func setupLayout() {
         self.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
+        titleView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 28).isActive = true
         titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         titleViewHeightConstraint = titleView.heightAnchor.constraint(equalToConstant: 0)
         titleViewHeightConstraint?.isActive = false
@@ -295,6 +307,14 @@ class LaarcStoryCellView: UIView {
         createdView.leadingAnchor.constraint(equalTo: usernameView.trailingAnchor, constant: 5).isActive = true
         createdView.centerYAnchor.constraint(equalTo: usernameView.centerYAnchor).isActive = true
  
+        self.addSubview(openBtn)
+        let openBtnSize: CGFloat = 15
+        openBtn.translatesAutoresizingMaskIntoConstraints = false
+        openBtn.topAnchor.constraint(equalTo: self.topAnchor, constant: VMargin + 5).isActive = true
+        openBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 10).isActive = true
+        openBtn.widthAnchor.constraint(equalToConstant: openBtnSize).isActive = true
+        openBtn.heightAnchor.constraint(equalToConstant: openBtnSize).isActive = true
+        
         setupControlBar()
         controlBarHeightConstraint = controlBarContainerView.heightAnchor.constraint(equalToConstant: 0)
     }
@@ -309,19 +329,24 @@ class LaarcStoryCellView: UIView {
         replyBtn.topAnchor.constraint(equalTo: controlBarContainerView.topAnchor).isActive = true
         replyBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         replyBtn.trailingAnchor.constraint(equalTo: controlBarContainerView.trailingAnchor).isActive = true
-        replyBtn.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        replyBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        replyBtn.contentHorizontalAlignment = .left
         
         controlBarContainerView.addSubview(upvoteBtn)
         upvoteBtn.translatesAutoresizingMaskIntoConstraints = false
         upvoteBtn.topAnchor.constraint(equalTo: controlBarContainerView.topAnchor).isActive = true
         upvoteBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         upvoteBtn.trailingAnchor.constraint(equalTo: replyBtn.leadingAnchor, constant: -15).isActive = true
-        upvoteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        upvoteBtn.widthAnchor.constraint(equalToConstant: 45).isActive = true
+        upvoteBtn.contentHorizontalAlignment = .right
+
         self.addSubview(controlBarContainerView)
         controlBarContainerView.translatesAutoresizingMaskIntoConstraints = false
         controlBarContainerView.topAnchor.constraint(equalTo: bodyView.bottomAnchor, constant: 5).isActive = true
         controlBarContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
         controlBarContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -VMargin).isActive = true
+        
+        self.bringSubviewToFront(openBtn)
     }
 
     @objc func handleUpvote(_ sender: Any) {
@@ -338,8 +363,8 @@ class LaarcStoryCellView: UIView {
         
         btn.titleLabel!.font = LaarcUIUtils.primaryFont(12)
         btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
-        btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
+        btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 6)
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         
         btn.alpha = 0.8
         btn.tintColor = ColorConstantsAlt.metadataColor
@@ -364,7 +389,17 @@ class LaarcStoryCellView: UIView {
         
         return btn
     }()
-    
+
+    let openBtn: UIButton = {
+        let btn = UIButton()
+        let img = #imageLiteral(resourceName: "open").withRenderingMode(.alwaysTemplate)
+        btn.tintColor = ColorConstantsAlt.metadataColor
+        btn.setImage(img, for: .normal)
+        btn.setTitle(" ", for: .normal)
+        btn.showsTouchWhenHighlighted = true
+        return btn
+    }()
+
     let titleView: UITextView = {
         let title = UITextView()
         title.isEditable = false

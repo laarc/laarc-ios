@@ -154,6 +154,9 @@ class LaarcStory: BaseComment {
         self.parent = commentData["parent"] as? Int
         self.deleted = commentData["deleted"] as? Bool ?? false
         self.dead = commentData["dead"] as? Bool ?? false
+        if let urlString = commentData["url"] as? String {
+            self.url = URL(string: urlString)
+        }
     }
     
     var timeAgo: String {

@@ -11,6 +11,7 @@ target 'LaarcIOS' do
   pod 'InputBarAccessoryView'
   pod 'SwiftyComments', :git => 'https://github.com/tsucres/SwiftyComments.git'
   pod 'SwiftScanner', '~> 1.0.2'
+  pod 'Cache'
 
   target 'LaarcIOSTests' do
     inherit! :search_paths
