@@ -32,7 +32,7 @@ class FoldableStoriesViewController: LaarcStoriesViewController, CommentsViewDel
     }
     
     override func viewDidLoad() {
-        self.fullyExpanded = true
+        self.fullyExpanded = false
         super.viewDidLoad()
         self.delegate = self
     }
@@ -76,34 +76,55 @@ class LaarcStoriesViewController: CommentsViewController {
     private let storyCellId = "laarcStoryCellId"
 
     let viewModel = LaarcTopStoriesVM()
+    
+    var loadTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(LaarcStoryCell.self, forCellReuseIdentifier: storyCellId)
         
         tableView.backgroundColor = ColorConstants.backgroundColorMed
-        
         swipeToHide = true
         swipeActionAppearance.swipeActionColor = ColorConstantsAlt.accentColor
-        
+
+        viewModelLoad()
+    }
+
+    func viewModelLoad() {
         viewModel.getTopStoriesData() { topStories in
             self.currentlyDisplayed = topStories
             self.tableView.reloadData()
         }
     }
 
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let viewSize: CGFloat = 80
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(tableView.frame.width), height: Int(viewSize)))
+        let prevBtn = UIButton(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
+        let nextBtn = UIButton(frame: CGRect(x: tableView.frame.size.width - viewSize, y: 0, width: viewSize, height: viewSize))
+        view.addSubview(prevBtn)
+        view.addSubview(nextBtn)
+        prevBtn.setTitle("prev", for: .normal)
+        prevBtn.titleLabel!.font = LaarcUIUtils.primaryFont()
+        prevBtn.contentVerticalAlignment = .top
+        prevBtn.contentEdgeInsets.top = 4
+        prevBtn.addTarget(self, action: #selector(handlePrev), for: .touchUpInside)
+        nextBtn.setTitle("next", for: .normal)
+        nextBtn.titleLabel!.font = LaarcUIUtils.primaryFont()
+        nextBtn.contentVerticalAlignment = .top
+        nextBtn.contentEdgeInsets.top = 4
+        nextBtn.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
+        return view
+    }
+
     override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
         let storyCell = tableView.dequeueReusableCell(withIdentifier: storyCellId, for: indexPath) as! LaarcStoryCell
-        storyCell.rank = indexPath.row + 1
         let story = currentlyDisplayed[indexPath.row] as! LaarcStory
+        storyCell.rank = (viewModel.topStoryIds.firstIndex(of: story.id) ?? 0) + 1
         storyCell.score = story.score ?? 0
         storyCell.level = story.level
         storyCell.itemTitle = story.title
         if let text = story.text {
-//            let maxChars = min(text.count, 108)
-//            let index = text.index(text.startIndex, offsetBy: maxChars)
-//            let truncated = text[..<index]
-//            let postfix = maxChars > 0 ? "..." : ""
             let attrText = HNCommentContentParser.buildAttributedText(From: text)
             storyCell.commentContent = attrText
         }
@@ -122,6 +143,24 @@ class LaarcStoriesViewController: CommentsViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.barTintColor = ColorConstantsAlt.accentColor
         self.navigationController?.navigationBar.tintColor = .black
+    }
+
+    func clearTableThenLoad(inDirection: PaginateDir) {
+        currentlyDisplayed = []
+        tableView.reloadData() {
+            self.viewModel.paginate(inDirection: inDirection)
+            self.viewModelLoad()
+        }
+    }
+
+    @objc func handleNext() {
+        tableView.scrollToTop(animated: false)
+        clearTableThenLoad(inDirection: .next)
+    }
+    
+    @objc func handlePrev() {
+        tableView.scrollToTop(animated: false)
+        clearTableThenLoad(inDirection: .prev)
     }
 
     func showDetailView(forStoryAt index: Int) {

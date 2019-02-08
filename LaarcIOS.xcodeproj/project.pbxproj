@@ -22,6 +22,7 @@
 		A1A14374220D4B0E0068A95B /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14373220D4B0E0068A95B /* UIButton+Extension.swift */; };
 		A1A14376220D4CD60068A95B /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14375220D4CD60068A95B /* UITextField+Extension.swift */; };
 		A1A14378220D50D40068A95B /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14377220D50D40068A95B /* NSAttributedString+Extension.swift */; };
+		A1A1437A220D75330068A95B /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A14379220D75330068A95B /* UITableView+Extension.swift */; };
 		A1A3305321FACFB300929D3A /* LaarcCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3305221FACFB300929D3A /* LaarcCommentsViewController.swift */; };
 		A1A3305621FAD3F600929D3A /* RootTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A3305521FAD3F600929D3A /* RootTabViewController.swift */; };
 		A1B8504021F2D36300962B1B /* LIOAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */; };
@@ -129,6 +130,7 @@
 		A1A14373220D4B0E0068A95B /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		A1A14375220D4CD60068A95B /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		A1A14377220D50D40068A95B /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		A1A14379220D75330068A95B /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		A1A3305221FACFB300929D3A /* LaarcCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcCommentsViewController.swift; sourceTree = "<group>"; };
 		A1A3305521FAD3F600929D3A /* RootTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabViewController.swift; sourceTree = "<group>"; };
 		A1B8503F21F2D36300962B1B /* LIOAddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOAddCommentViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				A1A14373220D4B0E0068A95B /* UIButton+Extension.swift */,
 				A1A14375220D4CD60068A95B /* UITextField+Extension.swift */,
 				A1A14377220D50D40068A95B /* NSAttributedString+Extension.swift */,
+				A1A14379220D75330068A95B /* UITableView+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -755,6 +758,7 @@
 				A18DB4DD21F80C2500A06B2A /* CommentsViewController.swift in Sources */,
 				A1B8505221F2E16100962B1B /* LIODownvoteButton.swift in Sources */,
 				A1C60D1321F175550017EDE0 /* LIOTopStoriesViewController.swift in Sources */,
+				A1A1437A220D75330068A95B /* UITableView+Extension.swift in Sources */,
 				A1860C3321F3FB1F0002AF8D /* LIOUserView.swift in Sources */,
 				A1A3305621FAD3F600929D3A /* RootTabViewController.swift in Sources */,
 				A1C60D1C21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift in Sources */,

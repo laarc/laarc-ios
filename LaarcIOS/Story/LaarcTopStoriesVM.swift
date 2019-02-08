@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum PaginateDir: Int {
+    case prev = -1, next = 1
+}
+
 class LaarcTopStoriesVM {
     var stories = [LaarcStory]()
     var topStoryIds = [Int]()
@@ -15,16 +19,25 @@ class LaarcTopStoriesVM {
     let itemsPerPage = 30
     var noopStoryIds = [Int]()
 
+    func loadPage(_ page: Int) {
+        currentPage = page
+    }
+
+    func paginate(inDirection dir: PaginateDir = .next) {
+        var nextPage = currentPage + dir.rawValue
+        let maxPageNumber = Int(ceil(Double(topStoryIds.count % itemsPerPage)))
+        if dir == .prev { nextPage = max(nextPage, 1) }
+        else { nextPage = min(nextPage, maxPageNumber) }
+        currentPage = nextPage
+    }
+
     func getTopStoriesData(completion: @escaping ([LaarcStory]) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.loadLaarcTopStoryIds() { topStoryIds in
-                self.clearStoryLists()
-                self.topStoryIds = topStoryIds
-                self.loadTopStoryData(id: topStoryIds[0], index: 0) {
-                    DispatchQueue.main.async {
-                        completion(self.stories)
-                    }
-                }
+        self.loadLaarcTopStoryIds() { topStoryIds in
+            self.clearStoryLists()
+            self.topStoryIds = topStoryIds
+            let startIndex = self.itemsPerPage * (self.currentPage - 1)
+            self.loadTopStoryData(id: topStoryIds[startIndex], index: startIndex) {
+                completion(self.stories)
             }
         }
     }
@@ -46,7 +59,8 @@ class LaarcTopStoriesVM {
     }
     
     func loadTopStoryData(
-        id: Int, index: Int,
+        id: Int,
+        index: Int,
         completion: @escaping (() -> Void)
         ) {
         LIOApi.shared.getItem(id: id) { data in
@@ -89,7 +103,7 @@ class LaarcTopStoriesVM {
         
         if nextIdx < cutoff {
             let nextId = self.topStoryIds[index + 1]
-            self.loadTopStoryData(id: nextId, index: index + 1, completion: completion)
+            self.loadTopStoryData(id: nextId, index: nextIdx, completion: completion)
         } else {
             completion()
         }
