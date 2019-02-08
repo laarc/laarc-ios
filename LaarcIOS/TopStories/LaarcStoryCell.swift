@@ -151,7 +151,16 @@ class LaarcStoryCell: CommentCell {
 class LaarcStoryCellView: UIView {
     open var body: NSAttributedString? {
         didSet {
-            self.bodyView.attributedText = body
+            if let body = body {
+                let attrs: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: ColorConstantsAlt.metadataColor
+                ]
+                
+                let attrText = NSMutableAttributedString(attributedString: body)
+                let len = attrText.length
+                attrText.addAttributes(attrs, range: NSRange(location: 0, length: len))
+                self.bodyView.attributedText = NSAttributedString(attributedString: attrText)
+            }
 
             if bodyView.attributedText.length == 0 {
                 bodyViewHeightConstraint?.isActive = true
@@ -174,7 +183,17 @@ class LaarcStoryCellView: UIView {
     open var title: String? {
         didSet {
             let rankStr = String(rank)
-            self.titleView.text = "\(rankStr). \(title ?? "")"
+            let prefix = rankStr.appending(". ")
+            let fullStr = "\(rankStr). \(title ?? "")"
+            let prefixLen = prefix.count
+            let fullAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium)
+            ]
+            let rankAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: ColorConstantsAlt.metadataColor]
+            let attrText = NSMutableAttributedString(string: fullStr)
+            attrText.addAttributes(rankAttributes, range: NSRange(location: 0, length: prefixLen))
+            attrText.addAttributes(fullAttributes, range: NSRange(location: 0, length: fullStr.count))
+            self.titleView.attributedText = NSAttributedString(attributedString: attrText)
         }
     }
     
@@ -372,14 +391,14 @@ class LaarcStoryCellView: UIView {
         lbl.isScrollEnabled = false
         lbl.textAlignment = .left
         lbl.backgroundColor = .clear
-        lbl.textColor = .black
+        lbl.textColor = ColorConstantsAlt.metadataColor
         lbl.font = UIFont.systemFont(ofSize: 13)
         return lbl
     }()
     
     let usernameView: UIButton = {
         let btn = UIButton()
-        btn.setTitleColor(.black, for: .normal)
+        btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.setTitle("Anonymous", for: .normal)
         btn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         return btn

@@ -288,6 +288,7 @@ class LaarcCommentViewAlt: UIView {
         let btn = UIButton()
         btn.setTitleColor(.black, for: .normal)
         btn.setTitle("Anonymous", for: .normal)
+        btn.setTitleColor(ColorConstantsAlt.metadataColor, for: .normal)
         btn.titleLabel!.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
         return btn
     }()
