@@ -241,23 +241,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSF-eb-elT">
-                                <rect key="frame" x="16" y="36" width="343" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-vE-CEo">
+                                <rect key="frame" x="16" y="81" width="343" height="555"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="by poster N time ago" translatesAutoresizingMaskIntoConstraints="NO" id="vpk-Aa-gI4">
+                                <rect key="frame" x="16" y="38" width="343" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Mjw-yu-oJo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fSF-eb-elT" firstAttribute="top" secondItem="dPK-pK-4F5" secondAttribute="top" constant="16" id="Cpa-L3-813"/>
-                            <constraint firstItem="dPK-pK-4F5" firstAttribute="trailing" secondItem="fSF-eb-elT" secondAttribute="trailing" constant="16" id="Fu0-aB-vnE"/>
-                            <constraint firstItem="fSF-eb-elT" firstAttribute="leading" secondItem="dPK-pK-4F5" secondAttribute="leading" constant="16" id="p5A-2i-lxC"/>
+                            <constraint firstItem="dPK-pK-4F5" firstAttribute="trailing" secondItem="vyr-vE-CEo" secondAttribute="trailing" constant="16" id="2rd-fa-1a9"/>
+                            <constraint firstItem="vpk-Aa-gI4" firstAttribute="leading" secondItem="dPK-pK-4F5" secondAttribute="leading" constant="16" id="5Wg-sl-Bb3"/>
+                            <constraint firstItem="dPK-pK-4F5" firstAttribute="trailing" secondItem="vpk-Aa-gI4" secondAttribute="trailing" constant="16" id="HbH-pi-0wd"/>
+                            <constraint firstItem="vyr-vE-CEo" firstAttribute="leading" secondItem="dPK-pK-4F5" secondAttribute="leading" constant="16" id="Ilb-MC-hoO"/>
+                            <constraint firstItem="dPK-pK-4F5" firstAttribute="bottom" secondItem="vyr-vE-CEo" secondAttribute="bottom" constant="31" id="hqB-Na-hBP"/>
+                            <constraint firstItem="vpk-Aa-gI4" firstAttribute="top" secondItem="dPK-pK-4F5" secondAttribute="top" constant="18" id="n2e-EJ-3LR"/>
+                            <constraint firstItem="vyr-vE-CEo" firstAttribute="top" secondItem="vpk-Aa-gI4" secondAttribute="bottom" constant="8" id="qCx-UX-SGd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dPK-pK-4F5"/>
                     </view>
                     <connections>
-                        <outlet property="contentLabel" destination="fSF-eb-elT" id="QFk-5k-6Sl"/>
+                        <outlet property="infoTextView" destination="vpk-Aa-gI4" id="Xnl-Sa-PTa"/>
+                        <outlet property="textContent" destination="vyr-vE-CEo" id="CdO-1h-Jke"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oJ-gF-pik" userLabel="First Responder" sceneMemberID="firstResponder"/>

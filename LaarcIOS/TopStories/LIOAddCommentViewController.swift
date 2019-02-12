@@ -11,8 +11,9 @@ import InputBarAccessoryView
 
 class LIOAddCommentViewController: UIViewController {
 
-    @IBOutlet weak var contentLabel: UILabel!
-    
+    @IBOutlet weak var textContent: UITextView!
+    @IBOutlet weak var infoTextView: UITextView!
+
     let inputBar = InputBarAccessoryView()
     
     var item: LIOItem!
@@ -35,8 +36,24 @@ class LIOAddCommentViewController: UIViewController {
         } else if let text = item.text {
             labelText = text
         }
+
         let attrText = HNCommentContentParser.buildAttributedText(From: labelText)
-        contentLabel.attributedText = attrText
+        textContent.attributedText = attrText
+        
+        var infoString = ""
+        if let by = item.by {
+            infoString += "by \(by) "
+        }
+        if let time = item.time {
+            infoString += "\(timeAgoSinceDate(time: time, numericDates: true))"
+        }
+
+        infoTextView.text = infoString
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textContent.scrollRectToVisible(CGRect.zero, animated: false)
     }
 
     func goBack() {
