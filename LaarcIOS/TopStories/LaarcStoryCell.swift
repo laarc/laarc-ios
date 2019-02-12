@@ -282,7 +282,7 @@ class LaarcStoryCellView: UIView {
         self.addSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 28).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 38).isActive = true
         titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: HMargin).isActive = true
         titleViewHeightConstraint = titleView.heightAnchor.constraint(equalToConstant: 0)
         titleViewHeightConstraint?.isActive = false
@@ -311,7 +311,7 @@ class LaarcStoryCellView: UIView {
         let openBtnSize: CGFloat = 15
         openBtn.translatesAutoresizingMaskIntoConstraints = false
         openBtn.topAnchor.constraint(equalTo: self.topAnchor, constant: VMargin + 5).isActive = true
-        openBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 10).isActive = true
+        openBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin - 20).isActive = true
         openBtn.widthAnchor.constraint(equalToConstant: openBtnSize).isActive = true
         openBtn.heightAnchor.constraint(equalToConstant: openBtnSize).isActive = true
         
@@ -329,7 +329,7 @@ class LaarcStoryCellView: UIView {
         replyBtn.topAnchor.constraint(equalTo: controlBarContainerView.topAnchor).isActive = true
         replyBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         replyBtn.trailingAnchor.constraint(equalTo: controlBarContainerView.trailingAnchor).isActive = true
-        replyBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        replyBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         replyBtn.contentHorizontalAlignment = .left
         
         controlBarContainerView.addSubview(upvoteBtn)

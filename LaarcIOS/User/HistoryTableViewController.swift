@@ -15,9 +15,19 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset.top = 20
+        loadHistory()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadHistory()
+    }
+
+    func loadHistory() {
         LaarcCache.shared.getHistory() { items in
-            print(items)
+            self.history.removeAll()
             self.history.append(contentsOf: items)
+            self.history.reverse()
             self.tableView.reloadData()
         }
     }

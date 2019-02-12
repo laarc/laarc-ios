@@ -29,11 +29,14 @@ class LIOAddCommentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let title = item.title {
-            contentLabel.text = title
+        var labelText = ""
+        if let title = item.title, title.count > 0 {
+            labelText = title
         } else if let text = item.text {
-            contentLabel.text = text
+            labelText = text
         }
+        let attrText = HNCommentContentParser.buildAttributedText(From: labelText)
+        contentLabel.attributedText = attrText
     }
 
     func goBack() {

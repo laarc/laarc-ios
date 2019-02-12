@@ -11,6 +11,10 @@ import SwiftyComments
 
 let commentsToLoad = 30
 
+protocol CommentCellDelegate {
+    func onAddReply(_ comment: LaarcComment?) -> Void
+}
+
 class FoldableCommentsViewController: LaarcCommentsViewController, CommentsViewDelegate {
 
     let headerIdenfifiter = "storyHeaderCellId"
@@ -124,12 +128,15 @@ class LaarcCommentsViewController: CommentsViewController {
     override open func commentsView(_ tableView: UITableView, commentCellForModel commentModel: AbstractComment, atIndexPath indexPath: IndexPath) -> CommentCell {
         let commentCell = tableView.dequeueReusableCell(withIdentifier: commentCellId, for: indexPath) as! LaarcCommentCellAlt
         let comment = currentlyDisplayed[indexPath.row] as! AttributedTextComment
+        comment.id = (currentlyDisplayed[indexPath.row] as! AttributedTextComment).id
         commentCell.level = comment.level
         commentCell.commentContentAttributed = comment.attributedContent
         commentCell.posterName = comment.by
         commentCell.date = comment.timeAgo
         commentCell.nReplies = comment.kids?.count ?? 0
         commentCell.isFolded = comment.isFolded && !isCellExpanded(indexPath: indexPath)
+        commentCell.comment = comment
+        commentCell.cellDelegate = self
         return commentCell
     }
     
@@ -224,6 +231,7 @@ class LaarcCommentsViewController: CommentsViewController {
                         LIOApi.shared.getItem(id: kids[i]) { commentData in
                             if let commentData = commentData as? [String: Any] {
                                 let comment = AttributedTextComment(commentData: commentData)
+                                comment.id = kids[i]
                                 laarcComments.append(comment)
                             }
 
@@ -240,4 +248,14 @@ class LaarcCommentsViewController: CommentsViewController {
     }
 }
 
-
+extension LaarcCommentsViewController: CommentCellDelegate {
+    func onAddReply(_ comment: LaarcComment?) {
+        if let comment = comment {
+            let commentAsItem = LaarcComment.toItem(comment: comment)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "addCommentVC") as! LIOAddCommentViewController
+            vc.item = commentAsItem
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}

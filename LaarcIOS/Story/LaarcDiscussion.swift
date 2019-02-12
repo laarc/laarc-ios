@@ -55,11 +55,13 @@ class LaarcDiscussion {
                 return
         }
 
-        for _ in 0..<parent.kids!.count {
+        for i in 0..<parent.kids!.count {
+            let id = parent.kids![i]
             var com = AttributedTextComment()
             parent.addReply(com)
             com.replyTo = parent
             com.level = parent.level + 1
+            com.id = id
             addReplyRecurs(&com, maximumChildren: maximumChildren - 1)
         }
     }
@@ -120,6 +122,22 @@ class LaarcComment: BaseComment {
             return ""
         }
     }
+    
+    static func toItem(comment: LaarcComment) -> LIOItem {
+        var json = [String: Any]()
+        json["id"] = comment.id
+        json["by"] = comment.by ?? ""
+        json["score"] = comment.score ?? 0
+        json["text"] = comment.text ?? ""
+        json["title"] = comment.title ?? ""
+        json["time"] = comment.time ?? 0
+        json["type"] = comment.type.rawValue
+        json["url"] = comment.url?.absoluteString ?? ""
+        json["kids"] = comment.kids ?? []
+        json["deleted"] = comment.deleted
+        json["dead"] = comment.dead
+        return LIOItem(item: json)
+    }
 }
 
 /**
@@ -166,6 +184,22 @@ class LaarcStory: BaseComment {
             }
             return ""
         }
+    }
+
+    static func toItem(story: LaarcStory) -> LIOItem {
+        var json = [String: Any]()
+        json["id"] = story.id
+        json["by"] = story.by ?? ""
+        json["score"] = story.score ?? 0
+        json["text"] = story.text ?? ""
+        json["title"] = story.title ?? ""
+        json["time"] = story.time ?? 0
+        json["type"] = story.type.rawValue
+        json["url"] = story.url?.absoluteString ?? ""
+        json["kids"] = story.kids ?? []
+        json["deleted"] = story.deleted
+        json["dead"] = story.dead
+        return LIOItem(item: json)
     }
 }
 

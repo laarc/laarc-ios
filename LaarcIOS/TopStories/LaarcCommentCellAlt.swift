@@ -23,6 +23,22 @@ struct ColorConstantsAlt {
 }
 
 class LaarcCommentCellAlt: CommentCell {
+    open var cellDelegate: CommentCellDelegate? {
+        get {
+            return self.content.cellDelegate
+        } set (value) {
+            self.content.cellDelegate = value
+        }
+    }
+
+    open var comment: LaarcComment? {
+        get {
+            return self.content.comment
+        } set (value) {
+            self.content.comment = value
+        }
+    }
+
     var content: LaarcCommentViewAlt {
         get {
             return self.commentViewContent as! LaarcCommentViewAlt
@@ -149,6 +165,9 @@ class LaarcCommentViewAlt: UIView {
         }
     }
     
+    open var comment: LaarcComment?
+    
+    open var cellDelegate: CommentCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -205,7 +224,7 @@ class LaarcCommentViewAlt: UIView {
         setupControlBar()
         controlBarHeightConstraint = controlBarContainerView.heightAnchor.constraint(equalToConstant: 0)
     }
-    
+
     /// Add Upvote & Reply buttons (and helper labels) to the view
     private func setupControlBar() {
         controlBarContainerView.backgroundColor = .white
@@ -215,6 +234,7 @@ class LaarcCommentViewAlt: UIView {
         replyBtn.bottomAnchor.constraint(equalTo: controlBarContainerView.bottomAnchor).isActive = true
         replyBtn.trailingAnchor.constraint(equalTo: controlBarContainerView.trailingAnchor).isActive = true
         replyBtn.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        replyBtn.addTarget(self, action: #selector(onReply(_:)), for: .touchUpInside)
         
         controlBarContainerView.addSubview(upvoteBtn)
         upvoteBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -230,6 +250,10 @@ class LaarcCommentViewAlt: UIView {
         controlBarContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -HMargin).isActive = true
         controlBarContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -VMargin).isActive = true
         
+    }
+
+    @objc func onReply(_ sender: Any?) {
+        cellDelegate?.onAddReply(self.comment)
     }
 
     let controlBarContainerView = UIView()
