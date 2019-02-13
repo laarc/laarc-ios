@@ -12,6 +12,7 @@ target 'LaarcIOS' do
   pod 'SwiftyComments', :git => 'https://github.com/tsucres/SwiftyComments.git'
   pod 'SwiftScanner', '~> 1.0.2'
   pod 'Cache'
+  pod 'Alamofire'
 
   target 'LaarcIOSTests' do
     inherit! :search_paths

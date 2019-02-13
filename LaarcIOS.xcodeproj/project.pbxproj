@@ -10,6 +10,10 @@
 		80371CF0DD24413AEF2282B8 /* Pods_LaarcIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5282795D3802F29E64FD0C07 /* Pods_LaarcIOS.framework */; };
 		98921A5015FB55FD0451817C /* Pods_LaarcIOSShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D08B0AC8D9380231F9CE72D /* Pods_LaarcIOSShareExtension.framework */; };
 		9D353324F2306895899BB74E /* Pods_LaarcIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9E9CBE51B4E8D8CCE9161A /* Pods_LaarcIOSTests.framework */; };
+		A159CB322213A88B00E6AB89 /* LaarcLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A159CB312213A88B00E6AB89 /* LaarcLoginView.xib */; };
+		A159CB342213A94700E6AB89 /* LaarcLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A159CB332213A94700E6AB89 /* LaarcLoginView.swift */; };
+		A159CB362213AAEC00E6AB89 /* LaarcUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A159CB352213AAEC00E6AB89 /* LaarcUserViewController.swift */; };
+		A159CB382213AB2C00E6AB89 /* LaarcUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A159CB372213AB2C00E6AB89 /* LaarcUserData.swift */; };
 		A16A1C4121F28E350011F0FA /* LIOUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A1C4021F28E350011F0FA /* LIOUtils.swift */; };
 		A1860C3121F3FB110002AF8D /* LIOUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1860C3021F3FB110002AF8D /* LIOUserView.xib */; };
 		A1860C3321F3FB1F0002AF8D /* LIOUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1860C3221F3FB1F0002AF8D /* LIOUserView.swift */; };
@@ -63,7 +67,6 @@
 		A1D2D06521FD518200152895 /* LaarcStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2D06421FD518200152895 /* LaarcStoriesViewController.swift */; };
 		A1EA7FCD2205327E009D3CFE /* LaarcTopStoriesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA7FCC2205327E009D3CFE /* LaarcTopStoriesVM.swift */; };
 		A1EC5C0F21FC41E200E2873B /* LaarcCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C0E21FC41E100E2873B /* LaarcCommentCell.swift */; };
-		A1EC5C1121FC425900E2873B /* LaarcData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1021FC425900E2873B /* LaarcData.swift */; };
 		A1EC5C1521FCF89D00E2873B /* LaarcDiscussion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */; };
 		A1EC5C1921FCFA3C00E2873B /* LaarcCommentCellAlt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1821FCFA3C00E2873B /* LaarcCommentCellAlt.swift */; };
 		A1EC5C1B21FCFB3F00E2873B /* HNCommentConrtentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5C1A21FCFB3F00E2873B /* HNCommentConrtentParser.swift */; };
@@ -121,6 +124,10 @@
 		5766EEA46BA0D64F98DA6F26 /* Pods-LaarcIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaarcIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS.release.xcconfig"; sourceTree = "<group>"; };
 		7D08B0AC8D9380231F9CE72D /* Pods_LaarcIOSShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LaarcIOSShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9461894667BC3F588E93DC21 /* Pods_LaarcIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LaarcIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A159CB312213A88B00E6AB89 /* LaarcLoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaarcLoginView.xib; sourceTree = "<group>"; };
+		A159CB332213A94700E6AB89 /* LaarcLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcLoginView.swift; sourceTree = "<group>"; };
+		A159CB352213AAEC00E6AB89 /* LaarcUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcUserViewController.swift; sourceTree = "<group>"; };
+		A159CB372213AB2C00E6AB89 /* LaarcUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcUserData.swift; sourceTree = "<group>"; };
 		A16A1C4021F28E350011F0FA /* LIOUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOUtils.swift; sourceTree = "<group>"; };
 		A1860C3021F3FB110002AF8D /* LIOUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LIOUserView.xib; sourceTree = "<group>"; };
 		A1860C3221F3FB1F0002AF8D /* LIOUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIOUserView.swift; sourceTree = "<group>"; };
@@ -181,7 +188,6 @@
 		A1D2D06421FD518200152895 /* LaarcStoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcStoriesViewController.swift; sourceTree = "<group>"; };
 		A1EA7FCC2205327E009D3CFE /* LaarcTopStoriesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcTopStoriesVM.swift; sourceTree = "<group>"; };
 		A1EC5C0E21FC41E100E2873B /* LaarcCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaarcCommentCell.swift; sourceTree = "<group>"; };
-		A1EC5C1021FC425900E2873B /* LaarcData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcData.swift; sourceTree = "<group>"; };
 		A1EC5C1421FCF89D00E2873B /* LaarcDiscussion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcDiscussion.swift; sourceTree = "<group>"; };
 		A1EC5C1821FCFA3C00E2873B /* LaarcCommentCellAlt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaarcCommentCellAlt.swift; sourceTree = "<group>"; };
 		A1EC5C1A21FCFB3F00E2873B /* HNCommentConrtentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNCommentConrtentParser.swift; sourceTree = "<group>"; };
@@ -260,6 +266,9 @@
 				A1860C3221F3FB1F0002AF8D /* LIOUserView.swift */,
 				A1A1437F220DAEEA0068A95B /* HistoryTableViewController.swift */,
 				A1A14381220DB0400068A95B /* HistoryTableViewCell.swift */,
+				A159CB312213A88B00E6AB89 /* LaarcLoginView.xib */,
+				A159CB332213A94700E6AB89 /* LaarcLoginView.swift */,
+				A159CB352213AAEC00E6AB89 /* LaarcUserViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -369,8 +378,8 @@
 				A1C60D1621F176F10017EDE0 /* LIOConstants.swift */,
 				A1C60D1421F176110017EDE0 /* LIOApi.swift */,
 				A16A1C4021F28E350011F0FA /* LIOUtils.swift */,
-				A1EC5C1021FC425900E2873B /* LaarcData.swift */,
 				A1A1437B220D8B5E0068A95B /* LaarcCache.swift */,
+				A159CB372213AB2C00E6AB89 /* LaarcUserData.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -578,6 +587,7 @@
 				A1860C3121F3FB110002AF8D /* LIOUserView.xib in Resources */,
 				A1C60CCD21F16ED20017EDE0 /* Main.storyboard in Resources */,
 				A1B8504421F2DAA000962B1B /* LIOStoryDetailTableHeader.xib in Resources */,
+				A159CB322213A88B00E6AB89 /* LaarcLoginView.xib in Resources */,
 				A1B8504C21F2E0CC00962B1B /* LIOUpvoteButton.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,6 +708,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LaarcIOS/Pods-LaarcIOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
@@ -709,6 +720,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
@@ -763,12 +775,14 @@
 				A1B8504821F2E08500962B1B /* LIOCommentTableViewCell.swift in Sources */,
 				A1D2D06521FD518200152895 /* LaarcStoriesViewController.swift in Sources */,
 				A1A14374220D4B0E0068A95B /* UIButton+Extension.swift in Sources */,
+				A159CB362213AAEC00E6AB89 /* LaarcUserViewController.swift in Sources */,
 				A1EA7FCD2205327E009D3CFE /* LaarcTopStoriesVM.swift in Sources */,
 				A1A3305321FACFB300929D3A /* LaarcCommentsViewController.swift in Sources */,
 				A1A14372220D4A320068A95B /* UITextView+Extension.swift in Sources */,
 				A18DB4DD21F80C2500A06B2A /* CommentsViewController.swift in Sources */,
 				A1B8505221F2E16100962B1B /* LIODownvoteButton.swift in Sources */,
 				A1C60D1321F175550017EDE0 /* LIOTopStoriesViewController.swift in Sources */,
+				A159CB382213AB2C00E6AB89 /* LaarcUserData.swift in Sources */,
 				A1A1437A220D75330068A95B /* UITableView+Extension.swift in Sources */,
 				A1860C3321F3FB1F0002AF8D /* LIOUserView.swift in Sources */,
 				A1A3305621FAD3F600929D3A /* RootTabViewController.swift in Sources */,
@@ -776,8 +790,8 @@
 				A1C60D1C21F190E50017EDE0 /* LIOTopStoryTableViewCell.swift in Sources */,
 				A1A14382220DB0400068A95B /* HistoryTableViewCell.swift in Sources */,
 				A1A14370220D49A30068A95B /* UIFont+Extension.swift in Sources */,
-				A1EC5C1121FC425900E2873B /* LaarcData.swift in Sources */,
 				A1C60D2021F1A6020017EDE0 /* LIOTopStoryDetailViewController.swift in Sources */,
+				A159CB342213A94700E6AB89 /* LaarcLoginView.swift in Sources */,
 				A1A1437C220D8B5E0068A95B /* LaarcCache.swift in Sources */,
 				A1EC5C1B21FCFB3F00E2873B /* HNCommentConrtentParser.swift in Sources */,
 				A1EC5C1521FCF89D00E2873B /* LaarcDiscussion.swift in Sources */,
